@@ -45,6 +45,7 @@ return packer.startup(function(use)
   use { "nvim-tree/nvim-web-devicons" }     -- Icons for file tree and other plugins
   use { "nvim-tree/nvim-tree.lua" }         -- File tree
   use { "windwp/nvim-autopairs" }           -- Automatically created ending for (), {}, etc.
+  use { "nvim-lualine/lualine.nvim" }       -- Bottom status bar line
 
   -- Color schemes
   use { "lunarvim/darkplus.nvim" }          -- Looks like VS Code

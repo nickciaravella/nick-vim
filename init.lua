@@ -11,4 +11,5 @@ require "user.telescope"
 require "user.treesitter"
 require "user.nvim-tree"
 require "user.autopairs"
+require "user.lualine"
 

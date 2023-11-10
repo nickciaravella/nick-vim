@@ -1,7 +1,7 @@
 # Installation Instructions
 
 
-
+Install nerfonts (Meslo)
 
 ## Windows
 
