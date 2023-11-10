@@ -10,7 +10,7 @@ lualine.setup {
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {
-      statusline = {},
+      statusline = {'NvimTree'},
       winbar = {},
     },
     ignore_focus = {},
@@ -25,21 +25,35 @@ lualine.setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch'},
-    lualine_c = {'filename'},
-    lualine_x = {'filetype'},
+    lualine_c = {'diff'},
+    lualine_x = {},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
   inactive_sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch'},
+    lualine_c = {},  -- Seems to load wierd
+    lualine_x = {},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  tabline = {},
+  winbar = {
     lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
+    lualine_b = {'filetype'},
+    lualine_c = {{'filename', path=1}},
+    lualine_x = {},
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
+  inactive_winbar = {
+    lualine_a = {},
+    lualine_b = {'filetype'},
+    lualine_c = {{'filename', path=1}},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {}
+  },
   extensions = {}
 }
