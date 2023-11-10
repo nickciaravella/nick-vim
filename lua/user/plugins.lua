@@ -42,8 +42,9 @@ packer.init({
 return packer.startup(function(use)
   use { "wbthomason/packer.nvim" }          -- Have packer manage itself
   use { "nvim-lua/plenary.nvim" }           -- Useful lua functions used by lots of plugins
-  use { "nvim-tree/nvim-web-devicons" }
-  use { "nvim-tree/nvim-tree.lua" }
+  use { "nvim-tree/nvim-web-devicons" }     -- Icons for file tree and other plugins
+  use { "nvim-tree/nvim-tree.lua" }         -- File tree
+  use { "windwp/nvim-autopairs" }           -- Automatically created ending for (), {}, etc.
 
   -- Color schemes
   use { "lunarvim/darkplus.nvim" }          -- Looks like VS Code
