@@ -25,15 +25,15 @@ lualine.setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch'},
-    lualine_c = {'diff'},
-    lualine_x = {},
+    lualine_c = {'buffers'},
+    lualine_x = {'diff'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
   inactive_sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch'},
-    lualine_c = {},  -- Seems to load wierd
+    lualine_c = {'filename'},
     lualine_x = {},
     lualine_y = {'progress'},
     lualine_z = {'location'}
