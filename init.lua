@@ -2,18 +2,31 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 require "user.autocommands"
-require "user.options"
-require "user.keymaps"
-require "user.plugins"
-require "user.colorscheme"
-require "user.cmp"
-require "user.lsp"
-require "user.telescope"
-require "user.treesitter"
-require "user.nvim-tree"
 require "user.autopairs"
-require "user.lualine"
-require "user.toggleterm"
-require "user.gitsigns"
+require "user.cmp"
+require "user.colorscheme"
 require "user.diffview"
+require "user.gitsigns"
+require "user.keymaps"
+require "user.lsp"
+require "user.lualine"
+require "user.nvim-tree"
+require "user.options"
+require "user.plugins"
+require "user.project"
+require "user.telescope"
+require "user.toggleterm"
+require "user.treesitter"
+
+
+-- null-ls
+-- debugger (dap) -- anything else needed to run nextjs/node apps
+-- test runner?
+-- whichkey
+-- comment
+-- see how to make everything load faster on start (or lazily?) - impatient.nvim says vim.loader.enable()
+-- alpha (startup screen) - look into alternatives
+-- indentlines (vertical lines), also look into setting whitespace characters and right ruler
+-- look into how to make the gitsigns / diffview highlighting more transparent
+-- look into how to disable snippets, etc. when in text files/comments
 

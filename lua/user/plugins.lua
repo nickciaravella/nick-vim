@@ -47,6 +47,7 @@ return packer.startup(function(use)
   use { "windwp/nvim-autopairs" }           -- Automatically created ending for (), {}, etc.
   use { "nvim-lualine/lualine.nvim" }       -- Bottom status bar line
   use { "akinsho/toggleterm.nvim" }         -- Embedded terminal
+  use { "ahmedkhalf/project.nvim" }         -- Project searching
 
   -- Color schemes
   use { "lunarvim/darkplus.nvim" }          -- Looks like VS Code
