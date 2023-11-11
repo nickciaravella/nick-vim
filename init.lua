@@ -12,4 +12,5 @@ require "user.treesitter"
 require "user.nvim-tree"
 require "user.autopairs"
 require "user.lualine"
+require "user.toggleterm"
 
