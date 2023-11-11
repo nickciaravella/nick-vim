@@ -109,6 +109,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\nickc\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\darkplus.nvim",
     url = "https://github.com/lunarvim/darkplus.nvim"
   },
+  ["diffview.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\nickc\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\diffview.nvim",
+    url = "https://github.com/sindrets/diffview.nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "C:\\Users\\nickc\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\friendly-snippets",
