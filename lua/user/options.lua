@@ -36,6 +36,11 @@ local options = {
   sidescrolloff = 8,                       -- minimal number of screen columns either side of cursor if wrap is `false`
   guifont = "monospace:h17",               -- the font used in graphical neovim applications
   whichwrap = "bs<>[]hl",                  -- which "horizontal" keys are allowed to travel to prev/next line
+
+  list = true,                             -- show whitespace characters. configure characters in listchars
+  listchars = {
+    space = '·'
+  },
 }
 for k, v in pairs(options) do vim.opt[k] = v end
 

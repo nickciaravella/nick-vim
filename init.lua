@@ -1,5 +1,5 @@
 vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrwPlugin =1
 
 require "user.autocommands"
 require "user.autopairs"
@@ -7,6 +7,7 @@ require "user.cmp"
 require "user.colorscheme"
 require "user.diffview"
 require "user.gitsigns"
+require "user.indentline"
 require "user.keymaps"
 require "user.lsp"
 require "user.lualine"
