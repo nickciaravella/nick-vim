@@ -50,6 +50,7 @@ return packer.startup(function(use)
   use { "ahmedkhalf/project.nvim" }         -- Project searching
   use { "lukas-reineke/indent-blankline.nvim" }             -- Indentation and whitespace characters
   use { "jose-elias-alvarez/null-ls.nvim" } -- Linting and formatting
+  use { "goolord/alpha-nvim" }              -- Startup screen
 
   -- Color schemes
   use { "lunarvim/darkplus.nvim" }          -- Looks like VS Code

@@ -1,6 +1,7 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin =1
 
+require "user.alpha"
 require "user.autocommands"
 require "user.autopairs"
 require "user.cmp"
