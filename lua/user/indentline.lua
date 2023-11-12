@@ -4,8 +4,14 @@ if not status_ok then
 end
 
 ibl.setup({
-    indent = { char = "|" },
-    whitespace = { highlight = { "Whitespace", "NonText" } },
-    scope = { exclude = { language = {  } } },
+    indent = { char = "▏" },
+    scope = {
+       enabled = true,
+       show_start = false,
+       show_end = false,
+       -- injected_languages = false,
+       -- highlight = { "Function", "Label" },
+       -- priority = 500,
+   }
 })
 
