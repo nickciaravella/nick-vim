@@ -49,6 +49,7 @@ return packer.startup(function(use)
   use { "akinsho/toggleterm.nvim" }         -- Embedded terminal
   use { "ahmedkhalf/project.nvim" }         -- Project searching
   use { "lukas-reineke/indent-blankline.nvim" }             -- Indentation and whitespace characters
+  use { "jose-elias-alvarez/null-ls.nvim" } -- Linting and formatting
 
   -- Color schemes
   use { "lunarvim/darkplus.nvim" }          -- Looks like VS Code
