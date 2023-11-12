@@ -51,6 +51,7 @@ return packer.startup(function(use)
   use { "lukas-reineke/indent-blankline.nvim" }             -- Indentation and whitespace characters
   use { "jose-elias-alvarez/null-ls.nvim" } -- Linting and formatting
   use { "goolord/alpha-nvim" }              -- Startup screen
+  use { "numToStr/Comment.nvim" }           -- Commenting code
 
   -- Color schemes
   use { "lunarvim/darkplus.nvim" }          -- Looks like VS Code
@@ -82,6 +83,7 @@ return packer.startup(function(use)
 
   -- Treesitter
   use { "nvim-treesitter/nvim-treesitter", run = require("nvim-treesitter.install").update() }
+  use { "JoosepAlviste/nvim-ts-context-commentstring" }  -- Use with numToStr/Comment to provide contextual commenting
 
   -- Git
   use { "lewis6991/gitsigns.nvim" }
