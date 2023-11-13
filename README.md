@@ -1,7 +1,15 @@
 # Installation Instructions
 
-Install nerfonts (Meslo)
-RipGrep (faster telescope) https://github.com/BurntSushi/ripgrep#installation
+
+Mac:
+```
+mv "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim-old
+git clone https://github.com/nickciaravella/nick-vim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+```
+
+# Install nerfonts (Meslo)
+# RipGrep (faster telescope) https://github.com/BurntSushi/ripgrep#installation
+
 
 ## Windows
 
@@ -13,6 +21,4 @@ Install GCC compilers for treesitter - https://www.freecodecamp.org/news/how-to-
 # Resources
 
 NeoVim-from-Scratch - https://github.com/LunarVim/NeoVim-from-Scratch
-
-
 
