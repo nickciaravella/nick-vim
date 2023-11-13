@@ -1,98 +1,149 @@
-local fn = vim.fn
-
--- Automatically install packer
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-	PACKER_BOOTSTRAP = fn.system({
-		"git",
-		"clone",
-		"--depth",
-		"1",
-		"https://github.com/wbthomason/packer.nvim",
-		install_path,
-	})
-	print("Installing packer close and reopen Neovim...")
-	vim.cmd([[packadd packer.nvim]])
+-- Automatically install lazy
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
-
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
+vim.opt.rtp:prepend(lazypath)
 
 -- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
+local status_ok, lazy = pcall(require, "lazy")
 if not status_ok then
 	return
 end
 
--- Have packer use a popup window
-packer.init({
-	display = {
-		open_fn = function()
-			return require("packer.util").float({ border = "rounded" })
-		end,
-	},
+-- Install your plugins here
+lazy.setup({
+    { "dstein64/vim-startuptime" },                           -- Startup profiler
+    { "nvim-lua/plenary.nvim" },                              -- Useful lua functions used by lots of plugins
+    { "nvim-tree/nvim-web-devicons" },                        -- Icons for file tree and other plugins
+    {
+        "nvim-tree/nvim-tree.lua",                            --  File tree
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function() require('user/nvim-tree') end
+    },
+    {
+        "windwp/nvim-autopairs",                            -- Automatically created ending for (), {}, etc.
+        event = "VeryLazy",
+        config = function() require('user/autopairs') end
+    },
+    {
+        "nvim-lualine/lualine.nvim",                        -- Bottom status bar line
+        event = "VeryLazy",
+        config = function() require('user/lualine') end
+    },
+    {
+        "ahmedkhalf/project.nvim",                          -- Project searching
+        config = function() require('user/project') end
+    },
+    {
+        "lukas-reineke/indent-blankline.nvim",              -- Indentation and whitespace characters
+        main = "ibl",
+        event = "VeryLazy",
+        config = function() require('user/indentline') end
+    },
+    {
+        "goolord/alpha-nvim",                               -- Startup screen
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function() require('user/alpha') end
+    },
+    {
+        "numToStr/Comment.nvim",                            -- Commenting code
+        event = "VeryLazy",
+        config = function() require('user/comment') end
+    },
+
+    -- Color schemes
+    { "lunarvim/darkplus.nvim" },                           -- Looks like VS Code
+
+    -- Auto completions
+    {
+        "hrsh7th/nvim-cmp",
+        event = "VeryLazy",
+        config = function() require('user/cmp') end
+    },
+    { "hrsh7th/cmp-buffer", event = "VeryLazy" },
+    { "hrsh7th/cmp-path", event = "VeryLazy" },
+    { "hrsh7th/cmp-cmdline", event = "VeryLazy" },
+    { "hrsh7th/cmp-nvim-lsp", event = "VeryLazy" },
+    { 'saadparwaiz1/cmp_luasnip', event = "VeryLazy" },
+    -- More sources can be found here: https://github.com/topics/nvim-cmp
+
+    -- Snippets
+    {
+        "L3MON4D3/LuaSnip",
+        event = "VeryLazy"
+    },
+    {
+        "rafamadriz/friendly-snippets",
+        event = "VeryLazy"
+    },
+
+    -- LSP
+    {
+        "neovim/nvim-lspconfig",
+        config = function() require('user/lsp/lspconfig') end
+    },
+    {
+        "williamboman/mason.nvim",                                              -- simple to use language server installer
+        config = function() require('user/lsp/mason') end
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        event = "VeryLazy",
+        config = function() require('user/lsp/mason-lspconfig') end
+    },
+    {
+        "jose-elias-alvarez/null-ls.nvim",                                      -- for formatters and linters
+        dependencies = { "nvim-lua/plenary.nvim" },
+        event = "VeryLazy",
+        config = function() require('user/null-ls') end
+    },
+    {
+        "RRethy/vim-illuminate",
+        event = "VeryLazy"
+    },
+    {
+        "folke/trouble.nvim" ,                                                  -- Navigating through code issues
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        event = "VeryLazy",
+        config = function() require('user/trouble') end
+    },
+
+    -- Telescope
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function() require('user/telescope') end
+    },
+    -- requires CMake, but will basically just make fuzzy finding faster.
+    -- { 'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
+
+    -- Treesitter
+    {
+        "nvim-treesitter/nvim-treesitter",
+        event = "VeryLazy",
+        build = ":TSUpdate",
+        dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
+        config = function() require('user/treesitter') end
+    },
+
+    -- Git
+    {
+        "lewis6991/gitsigns.nvim" ,
+        event = "VeryLazy",
+        config = function() require('user/gitsigns') end
+    },
+    {
+        "sindrets/diffview.nvim" ,
+        event = "VeryLazy",
+        config = function() require('user/diffview') end
+    }
 })
 
--- Install your plugins here
-return packer.startup(function(use)
-  use { "wbthomason/packer.nvim" }          -- Have packer manage itself
-  use { "nvim-lua/plenary.nvim" }           -- Useful lua functions used by lots of plugins
-  use { "nvim-tree/nvim-web-devicons" }     -- Icons for file tree and other plugins
-  use { "nvim-tree/nvim-tree.lua" }         -- File tree
-  use { "windwp/nvim-autopairs" }           -- Automatically created ending for (), {}, etc.
-  use { "nvim-lualine/lualine.nvim" }       -- Bottom status bar line
-  use { "akinsho/toggleterm.nvim" }         -- Embedded terminal
-  use { "ahmedkhalf/project.nvim" }         -- Project searching
-  use { "lukas-reineke/indent-blankline.nvim" }             -- Indentation and whitespace characters
-  use { "jose-elias-alvarez/null-ls.nvim" } -- Linting and formatting
-  use { "goolord/alpha-nvim" }              -- Startup screen
-  use { "numToStr/Comment.nvim" }           -- Commenting code
-
-  -- Color schemes
-  use { "lunarvim/darkplus.nvim" }          -- Looks like VS Code
-
-  -- Auto completions
-  use { "hrsh7th/nvim-cmp" }
-  use { "hrsh7th/cmp-buffer" }
-  use { "hrsh7th/cmp-path" }
-  use { "hrsh7th/cmp-cmdline" }
-  use { "hrsh7th/cmp-nvim-lsp" }
-  use { 'saadparwaiz1/cmp_luasnip' }
-  -- More sources can be found here: https://github.com/topics/nvim-cmp
-
-  -- Snippets
-  use { "L3MON4D3/LuaSnip" }
-  use { "rafamadriz/friendly-snippets" }
-
-  -- LSP
-  use { "neovim/nvim-lspconfig" }
-  use { "williamboman/mason.nvim" }             -- simple to use language server installer
-  use { "williamboman/mason-lspconfig.nvim" }
-  use { "jose-elias-alvarez/null-ls.nvim" }     -- for formatters and linters
-  use { "RRethy/vim-illuminate" }
-  use { "folke/trouble.nvim" }                  -- Navigating through code issues
-
-  -- Telescope
-  use { "nvim-telescope/telescope.nvim" }
-  -- requires CMake, but will basically just make fuzzy finding faster.
-  -- use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
-
-  -- Treesitter
-  use { "nvim-treesitter/nvim-treesitter", run = require("nvim-treesitter.install").update() }
-  use { "JoosepAlviste/nvim-ts-context-commentstring" }  -- Use with numToStr/Comment to provide contextual commenting
-
-  -- Git
-  use { "lewis6991/gitsigns.nvim" }
-  use { "sindrets/diffview.nvim" }
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if PACKER_BOOTSTRAP then
-      require("packer").sync()
-  end
-end)
