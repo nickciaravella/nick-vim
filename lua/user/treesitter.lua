@@ -1,9 +1,6 @@
-local M = {
-}
-function M.config()
-  local configs = require "nvim-treesitter.configs"
+local configs = require "nvim-treesitter.configs"
 
-  configs.setup {
+configs.setup {
     ensure_installed = { "lua", "markdown", "markdown_inline", "bash", "python" }, -- put the language you want in this array
     -- ensure_installed = "all", -- one of "all" or a list of languages
     ignore_install = { "" },                                                       -- List of parsers to ignore installing
@@ -19,9 +16,7 @@ function M.config()
     indent = { enable = true, disable = { "python", "css" } },
     context_commentstring = {
       enable = true,
-      enable_autocmd = false,
     },
-  }
-end
+    enable_autocmd = false,
+}
 
-return M
