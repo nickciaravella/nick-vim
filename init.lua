@@ -22,9 +22,10 @@ require "user.project"
 require "user.telescope"
 require "user.toggleterm"
 require "user.treesitter"
+require "user.trouble"
 
 
--- debugger (dap) -- anything else needed to run nextjs/node apps
+-- debugger (dap, dapui) -- anything else needed to run nextjs/node apps
 -- test runner?
 -- whichkey
 -- look into how to make the gitsigns / diffview highlighting more transparent

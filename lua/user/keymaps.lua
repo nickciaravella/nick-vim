@@ -39,8 +39,16 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 keymap("n", "<A-j>", ":m .+1<CR>==", opts)
 keymap("n", "<A-k>", ":m .-2<CR>==", opts)
 
+-- Code actions & trouble
+keymap("n", "<leader>t", function() require("trouble").toggle() end)
+keymap("n", "<leader>h", ":lua vim.lsp.buf.code_action()<CR>")
+
+-- Git
+keymap("n", "<leader>do", ":DiffviewOpen<CR>")
+keymap("n", "<leader>dc", ":DiffviewClose<CR>")
+
 -- Insert --
--- Press jk fast to exit insert mode 
+-- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)
 keymap("i", "kj", "<ESC>", opts)
 
@@ -63,7 +71,7 @@ keymap("x", "K", ":m '<-2<CR>gv=gv", opts)
 keymap("x", "<A-j>", ":m '>+1<CR>gv=gv", opts)
 keymap("x", "<A-k>", ":m '<-2<CR>gv=gv", opts)
 
--- NVimTree -- 
+-- NVimTree --
 keymap("n", "<C-b>", ":NvimTreeToggle<CR>", opts)
 
 -- Terminal --

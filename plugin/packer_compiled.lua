@@ -219,6 +219,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\nickc\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
   },
+  ["trouble.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\nickc\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\trouble.nvim",
+    url = "https://github.com/folke/trouble.nvim"
+  },
   ["vim-illuminate"] = {
     loaded = true,
     path = "C:\\Users\\nickc\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-illuminate",
