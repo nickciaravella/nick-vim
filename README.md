@@ -4,7 +4,7 @@
 Mac:
 ```
 mv "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim-old
-git clone https://github.com/nickciaravella/nick-vim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+git clone git@github.com:nickciaravella/nick-vim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
 ```
 
 # Install nerfonts (Meslo)
