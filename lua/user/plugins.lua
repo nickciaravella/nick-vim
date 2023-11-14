@@ -144,6 +144,14 @@ lazy.setup({
         "sindrets/diffview.nvim" ,
         event = "VeryLazy",
         config = function() require('user/diffview') end
+    },
+
+    -- Lanugage helpers
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function() vim.fn["mkdp#util#install"]() end,
     }
 })
 
