@@ -9,7 +9,10 @@ git clone git@github.com:nickciaravella/nick-vim.git "${XDG_CONFIG_HOME:-$HOME/.
 ```
 
 ### Windows
-TODO
+```shell
+ren %LocalAppData%\nvim %LocalAppData%\nvim-old
+git clone git@github.com:nickciaravella/nick-vim.git %LocalAppData%\nvim
+```
 
 ## Dependencies
 ### Install nerfonts (Meslo)
