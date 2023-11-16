@@ -58,6 +58,11 @@ lazy.setup({
         event = "VeryLazy",
         config = function() require('user/comment') end
     },
+    {
+        "hood/popui.nvim",
+        event = "VeryLazy",
+        config = function() require "user/popui" end
+    },
 
     -- Color schemes
     { "lunarvim/darkplus.nvim" },                           -- Looks like VS Code

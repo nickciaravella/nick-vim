@@ -16,3 +16,7 @@ require "user.lsp"
 -- look into how to make the gitsigns / diffview highlighting more transparent
 -- look into how to disable snippets, etc. when in text files/comments
 
+-- nvim-lint (Dreams of Code Youtube - The almost perfect Noevim setup for nodejs)
+-- hrsh7th/cmp-nvim-lsp-signature-help
+-- do i need a formatter for prettier w/o null-ls?
+
