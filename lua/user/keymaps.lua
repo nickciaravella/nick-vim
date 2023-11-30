@@ -43,10 +43,6 @@ keymap("n", "<A-k>", ":m .-2<CR>==", opts)
 keymap("n", "<leader>t", function() require("trouble").toggle() end)
 keymap("n", "<leader>h", ":lua vim.lsp.buf.code_action()<CR>")
 
--- Git
-keymap("n", "<leader>do", ":DiffviewOpen<CR>")
-keymap("n", "<leader>dc", ":DiffviewClose<CR>")
-
 -- Insert --
 -- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)

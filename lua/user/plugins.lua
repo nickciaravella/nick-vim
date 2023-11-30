@@ -146,9 +146,9 @@ lazy.setup({
         config = function() require('user/gitsigns') end
     },
     {
-        "sindrets/diffview.nvim" ,
+        "tpope/vim-fugitive",
         event = "VeryLazy",
-        config = function() require('user/diffview') end
+        config = function() require('user/fugitive') end
     },
 
     -- Lanugage helpers

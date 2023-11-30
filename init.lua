@@ -13,7 +13,6 @@ require "user.lsp"
 -- debugger (dap, dapui) -- anything else needed to run nextjs/node apps
 -- test runner?
 -- whichkey
--- look into how to make the gitsigns / diffview highlighting more transparent
 -- look into how to disable snippets, etc. when in text files/comments
 
 -- nvim-lint (Dreams of Code Youtube - The almost perfect Noevim setup for nodejs)
