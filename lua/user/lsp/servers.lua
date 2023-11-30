@@ -1,11 +1,10 @@
 return {
-  "jedi_language_server",
-	"lua_ls",
-	"cssls",
-	"html",
-	"tsserver",
-	"pyright",
-	"jsonls",
-	"yamlls",
+    "jedi_language_server",  -- Python
+    "lua_ls",                -- Lua
+    "cssls",                 -- CSS
+    "html",                  -- HTML
+    "tsserver",              -- Typescript
+    "jsonls",                -- JSON
+    "yamlls",                -- YAML
 }
 
