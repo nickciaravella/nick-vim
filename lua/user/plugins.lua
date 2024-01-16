@@ -80,16 +80,6 @@ lazy.setup({
     { 'saadparwaiz1/cmp_luasnip', event = "VeryLazy" },
     -- More sources can be found here: https://github.com/topics/nvim-cmp
 
-    -- Snippets
-    {
-        "L3MON4D3/LuaSnip",
-        event = "VeryLazy"
-    },
-    {
-        "rafamadriz/friendly-snippets",
-        event = "VeryLazy"
-    },
-
     -- LSP
     {
         "neovim/nvim-lspconfig",
@@ -141,7 +131,7 @@ lazy.setup({
 
     -- Git
     {
-        "lewis6991/gitsigns.nvim" ,
+        "lewis6991/gitsigns.nvim",
         event = "VeryLazy",
         config = function() require('user/gitsigns') end
     },
@@ -150,6 +140,10 @@ lazy.setup({
         event = "VeryLazy",
         config = function() require('user/fugitive') end
     },
+    {
+        "tpope/vim-rhubarb",
+        event = "VeryLazy",
+    },
 
     -- Lanugage helpers
     {
@@ -157,6 +151,11 @@ lazy.setup({
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
         ft = { "markdown" },
         build = function() vim.fn["mkdp#util#install"]() end,
-    }
+    },
+
+    -- SQL
+    "tpope/vim-dadbod",
+    "kristijanhusak/vim-dadbod-ui",
+    'kristijanhusak/vim-dadbod-ui',
 })
 
