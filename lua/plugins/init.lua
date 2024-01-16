@@ -118,13 +118,6 @@ return {
         config = function() require('user/treesitter') end
     },
 
-    -- Git
-    {
-        "lewis6991/gitsigns.nvim" ,
-        event = "VeryLazy",
-        config = function() require('user/gitsigns') end
-    },
-
     -- Lanugage helpers
     {
         "iamcco/markdown-preview.nvim",
