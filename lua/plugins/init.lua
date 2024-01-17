@@ -8,11 +8,6 @@ return {
         config = function() require('user/nvim-tree') end
     },
     {
-        "windwp/nvim-autopairs",                            -- Automatically created ending for (), {}, etc.
-        event = "VeryLazy",
-        config = function() require('user/autopairs') end
-    },
-    {
         "nvim-lualine/lualine.nvim",                        -- Bottom status bar line
         event = "VeryLazy",
         config = function() require('user/lualine') end
