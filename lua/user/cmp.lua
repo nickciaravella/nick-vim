@@ -94,20 +94,25 @@ cmp.setup {
       "s",
     }),
   },
-  -- formatting = {
-  --   fields = { "kind", "abbr", "menu" },
-  --   format = function(entry, vim_item)
-  --     vim_item.menu = vim_item.kind
-  --     vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-  --     return vim_item
-  --   end,
-  -- },
+  formatting = {
+    fields = { "kind", "abbr", "menu" },
+    format = function(entry, vim_item)
+        vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+        if entry.completion_item.detail ~= nil and entry.completion_item.detail ~= "" then
+            vim_item.menu = vim.fn.strcharpart(entry.completion_item.detail, 0, 10)
+        else
+            -- vim_item.menu = vim_item.kind
+        end
+        return vim_item
+    end,
+  },
   sources = {
     -- The order here is the order that autocompletions show up.
     { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
+    { name = "nvim_lsp_signature_help"}
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,

@@ -38,8 +38,8 @@ keymap("n", "<A-j>", ":m .+1<CR>==", opts)
 keymap("n", "<A-k>", ":m .-2<CR>==", opts)
 
 -- Code actions & trouble
-keymap("n", "<leader>t", function() require("trouble").toggle() end)
-keymap("n", "<leader>h", ":lua vim.lsp.buf.code_action()<CR>")
+keymap("n", "<leader>tt", function() require("trouble").toggle() end)
+keymap("n", "<leader>gf", ":lua vim.lsp.buf.code_action()<CR>")
 
 -- Insert --
 -- Press jk fast to exit insert mode
@@ -76,6 +76,8 @@ vim.keymap.set('n', '<leader>sg', function () require('telescope.builtin').live_
 vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
 vim.keymap.set('n', '<leader>sd', function () require('telescope.builtin').diagnostics() end, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', function () require('telescope.builtin').resume() end, { desc = '[S]earch [R]esume' })
+
+vim.keymap.set('n', '<leader>gr', function () require('telescope.builtin').lsp_references() end, { desc = '[G]o to [R]eferences' })
 
 -- Visual Block --
 -- Move text up and down

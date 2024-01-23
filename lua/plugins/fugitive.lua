@@ -8,7 +8,7 @@ return {
         'GBrowse',
     },
     keys = {
-        { "<leader>gs", ":Git|10wincmd_<CR>", }
+        { "<leader>ts", ":Git|10wincmd_<CR>", }
     }
 }
 
