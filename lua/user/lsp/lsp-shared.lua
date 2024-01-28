@@ -39,7 +39,7 @@ M.setup = function()
     end
 
     local config = {
-        virtual_text = true, -- show help text inline
+        virtual_text = false, -- show help text inline
         signs = {
             active = signs, -- show signs
         },
