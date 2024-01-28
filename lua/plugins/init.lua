@@ -89,12 +89,6 @@ return {
         "RRethy/vim-illuminate",
         event = "VeryLazy"
     },
-    {
-        "folke/trouble.nvim" ,                                                  -- Navigating through code issues
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        event = "VeryLazy",
-        config = function() require('user/trouble') end
-    },
 
     -- Telescope
     {

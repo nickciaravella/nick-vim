@@ -31,7 +31,6 @@
   "popui.nvim": { "branch": "master", "commit": "4d903e46fdb5eef25fa79ef1b598f5340a2674b0" },
   "project.nvim": { "branch": "main", "commit": "8c6bad7d22eef1b71144b401c9f74ed01526a4fb" },
   "telescope.nvim": { "branch": "master", "commit": "da8b3d485975a8727bea127518b65c980521ae22" },
-  "trouble.nvim": { "branch": "main", "commit": "f1168feada93c0154ede4d1fe9183bf69bac54ea" },
   "vim-dadbod": { "branch": "master", "commit": "738cfc2ea6a1510fe23cba9006fef9291be70f7b" },
   "vim-dadbod-completion": { "branch": "master", "commit": "c920cb0ba3dff4b1b0ed373e1c0b3007dec696c2" },
   "vim-dadbod-ui": { "branch": "master", "commit": "e99dcfd5162d9b9b4b24a5d035cf114315f1aeec" },

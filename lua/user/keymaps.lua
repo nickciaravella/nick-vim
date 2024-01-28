@@ -38,10 +38,6 @@ keymap("n", "<leader>won", ":%bd|e#|bd#<CR>", opts)
 keymap("n", "<A-j>", ":m .+1<CR>==", opts)
 keymap("n", "<A-k>", ":m .-2<CR>==", opts)
 
--- Code actions & trouble
-keymap("n", "<leader>tt", function() require("trouble").toggle() end)
-keymap("n", "gf", ":lua vim.lsp.buf.code_action()<CR>")
-
 -- Insert --
 -- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)
@@ -60,33 +56,34 @@ keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
 keymap("v", "p", '"_dP', opts)
 
 -- Telescope
-vim.keymap.set('n', '<leader>fr', function () require('telescope.builtin').oldfiles() end, { desc = '[F]ind [R]ecently opened files' })
-vim.keymap.set('n', '<leader>fb', function () require('telescope.builtin').buffers() end, { desc = '[F]ind existing [B]uffers' })
-vim.keymap.set('n', '<leader>sc', function()
+keymap('n', '<leader>fr', function () require('telescope.builtin').oldfiles() end, { desc = '[F]ind [R]ecently opened files' })
+keymap('n', '<leader>fb', function () require('telescope.builtin').buffers() end, { desc = '[F]ind existing [B]uffers' })
+keymap('n', '<leader>sc', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find({previewer = false })
 end, { desc = '[S]earch in [C]urrent buffer' })
-vim.keymap.set('n', '<leader>ff', function () require('telescope.builtin').find_files() end, { desc = '[F]ind [F]iles' })
-vim.keymap.set('n', '<leader>fg', function () require('telescope.builtin').git_files() end, { desc = '[F]ind [G]it files' })
-vim.keymap.set('n', '<leader>sh', function () require('telescope.builtin').help_tags() end, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', function () require('telescope.builtin').grep_string() end, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', function () require('telescope.builtin').live_grep() end, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
-vim.keymap.set('n', '<leader>sr', function () require('telescope.builtin').resume() end, { desc = '[S]earch [R]esume' })
+keymap('n', '<leader>ff', function () require('telescope.builtin').find_files() end, { desc = '[F]ind [F]iles' })
+keymap('n', '<leader>fg', function () require('telescope.builtin').git_files() end, { desc = '[F]ind [G]it files' })
+keymap('n', '<leader>sh', function () require('telescope.builtin').help_tags() end, { desc = '[S]earch [H]elp' })
+keymap('n', '<leader>sw', function () require('telescope.builtin').grep_string() end, { desc = '[S]earch current [W]ord' })
+keymap('n', '<leader>sg', function () require('telescope.builtin').live_grep() end, { desc = '[S]earch by [G]rep' })
+keymap('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
+keymap('n', '<leader>sr', function () require('telescope.builtin').resume() end, { desc = '[S]earch [R]esume' })
 
 -- LSP mappings
-vim.keymap.set('n', '<leader>gd', function () require('telescope.builtin').lsp_definitions() end, { desc = '[G]o to [D]efinition' })
-vim.keymap.set('n', '<leader>gr', function () require('telescope.builtin').lsp_references() end, { desc = '[G]o to [R]eferences' })
-vim.keymap.set('n', '<leader>gs', function () require('telescope.builtin').lsp_document_symbols() end, { desc = '[G]o to [S]ymbols' })
-vim.keymap.set('n', '<leader>gi', function () require('telescope.builtin').lsp_implementations() end, { desc = '[G]o to [I]mplementations' })
-vim.keymap.set('n', '<leader>gt', function () require('telescope.builtin').lsp_type_definitions() end, { desc = '[G]o to [T]ype Defintion' })
-vim.keymap.set('n', '<S-k>', "<CMD>lua vim.lsp.buf.hover()<CR>")
+keymap('n', '<leader>gd', function () require('telescope.builtin').lsp_definitions() end, { desc = '[G]o to [D]efinition' })
+keymap('n', '<leader>gr', function () require('telescope.builtin').lsp_references() end, { desc = '[G]o to [R]eferences' })
+keymap('n', '<leader>gs', function () require('telescope.builtin').lsp_document_symbols() end, { desc = '[G]o to [S]ymbols' })
+keymap('n', '<leader>gi', function () require('telescope.builtin').lsp_implementations() end, { desc = '[G]o to [I]mplementations' })
+keymap('n', '<leader>gt', function () require('telescope.builtin').lsp_type_definitions() end, { desc = '[G]o to [T]ype Defintion' })
+keymap('n', '<S-k>', "<CMD>lua vim.lsp.buf.hover()<CR>")
 
 -- Diagnostics
-vim.keymap.set('n', '<leader>dl', function () require('telescope.builtin').diagnostics() end, { desc = '[D]iagnostics [L]ist' })
-vim.keymap.set('n', '<leader>dk', "<CMD>lua vim.lsp.diagnostics.goto_prev()<CR>", { desc = '[D]iagnostics - Previous' })
-vim.keymap.set('n', '<leader>dj', "<CMD>lua vim.lsp.diagnostics.goto_next()<CR>", { desc = '[D]iagnostics - Next' })
-vim.keymap.set('n', '<leader>ds', "<CMD>lua vim.lsp.diagnostics.open_float()<CR>", { desc = '[D]iagnostics - [S]how' })
+keymap('n', '<leader>dl', function () require('telescope.builtin').diagnostics() end, { desc = '[D]iagnostics [L]ist' })
+keymap('n', '<leader>dk', "<CMD>lua vim.lsp.diagnostics.goto_prev()<CR>", { desc = '[D]iagnostics - Previous' })
+keymap('n', '<leader>dj', "<CMD>lua vim.lsp.diagnostics.goto_next()<CR>", { desc = '[D]iagnostics - Next' })
+keymap('n', '<leader>ds', "<CMD>lua vim.lsp.diagnostics.open_float()<CR>", { desc = '[D]iagnostics - [S]how' })
+keymap("n", "<leader>df", "<CMD>lua vim.lsp.buf.code_action()<CR>", { desc = '[D]iagnostics - [F]ix' })
 
 -- Visual Block --
 -- Move text up and down
