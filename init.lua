@@ -29,6 +29,5 @@ end
 
 lazy.setup("plugins")
 
-require "user.colorscheme" -- Move to lazy
 require "user.lsp"
 

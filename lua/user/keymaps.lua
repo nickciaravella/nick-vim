@@ -80,9 +80,9 @@ keymap('n', '<S-k>', "<CMD>lua vim.lsp.buf.hover()<CR>")
 
 -- Diagnostics
 keymap('n', '<leader>dl', function () require('telescope.builtin').diagnostics() end, { desc = '[D]iagnostics [L]ist' })
-keymap('n', '<leader>dk', "<CMD>lua vim.lsp.diagnostics.goto_prev()<CR>", { desc = '[D]iagnostics - Previous' })
-keymap('n', '<leader>dj', "<CMD>lua vim.lsp.diagnostics.goto_next()<CR>", { desc = '[D]iagnostics - Next' })
-keymap('n', '<leader>ds', "<CMD>lua vim.lsp.diagnostics.open_float()<CR>", { desc = '[D]iagnostics - [S]how' })
+keymap('n', '<leader>dk', "<CMD>lua vim.diagnostics.goto_prev()<CR>", { desc = '[D]iagnostics - Previous' })
+keymap('n', '<leader>dj', "<CMD>lua vim.diagnostics.goto_next()<CR>", { desc = '[D]iagnostics - Next' })
+keymap('n', '<leader>ds', "<CMD>lua vim.diagnostics.open_float()<CR>", { desc = '[D]iagnostics - [S]how' })
 keymap("n", "<leader>df", "<CMD>lua vim.lsp.buf.code_action()<CR>", { desc = '[D]iagnostics - [F]ix' })
 
 -- Visual Block --

@@ -38,9 +38,6 @@ return {
         config = function() require "user/popui" end
     },
 
-    -- Color schemes
-    { "lunarvim/darkplus.nvim" },                           -- Looks like VS Code
-
     -- Auto completions
     {
         "hrsh7th/nvim-cmp",
