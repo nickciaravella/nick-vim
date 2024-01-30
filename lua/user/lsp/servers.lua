@@ -3,7 +3,7 @@ return {
     "lua_ls",                -- Lua
     "cssls",                 -- CSS
     "html",                  -- HTML
-    "tsserver",              -- Typescript
+    -- "tsserver",              -- Typescript
     "jsonls",                -- JSON
     "yamlls",                -- YAML
 }

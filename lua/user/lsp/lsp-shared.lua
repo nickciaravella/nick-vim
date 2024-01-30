@@ -12,7 +12,7 @@ M.servers = {
     "lua_ls",                -- Lua
     "cssls",                 -- CSS
     "html",                  -- HTML
-    "tsserver",              -- Typescript
+--    "tsserver",              -- Typescript -- Using typescript-tools instead.
     "jsonls",                -- JSON
     "yamlls",                -- YAML
 }

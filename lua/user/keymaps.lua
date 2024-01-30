@@ -51,6 +51,8 @@ keymap("v", ">", ">gv^", opts)
 -- Move text up and down
 keymap("v", "<A-j>", ":m '>+1<CR>gv=gv", opts)
 keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
+keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
+keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
 
 -- Hold onto pasted line
 keymap("v", "p", '"_dP', opts)
