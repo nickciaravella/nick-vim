@@ -79,6 +79,7 @@ keymap('n', '<leader>gs', function () require('telescope.builtin').lsp_document_
 keymap('n', '<leader>gi', function () require('telescope.builtin').lsp_implementations() end, { desc = '[G]o to [I]mplementations' })
 keymap('n', '<leader>gt', function () require('telescope.builtin').lsp_type_definitions() end, { desc = '[G]o to [T]ype Defintion' })
 keymap('n', '<S-k>', "<CMD>lua vim.lsp.buf.hover()<CR>")
+keymap('n', '<leader>go', "<CMD>Telescope aerial<CR>", { desc = '[G]o to [O]utline' })
 
 -- Diagnostics
 keymap('n', '<leader>dl', function () require('telescope.builtin').diagnostics() end, { desc = '[D]iagnostics [L]ist' })
