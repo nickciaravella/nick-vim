@@ -8,11 +8,6 @@ return {
         config = function() require('user/nvim-tree') end
     },
     {
-        "nvim-lualine/lualine.nvim",                        -- Bottom status bar line
-        event = "VeryLazy",
-        config = function() require('user/lualine') end
-    },
-    {
         "ahmedkhalf/project.nvim",                          -- Project searching
         config = function() require('user/project') end
     },
