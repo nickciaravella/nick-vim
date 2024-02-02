@@ -8,10 +8,6 @@ return {
         config = function() require('user/nvim-tree') end
     },
     {
-        "ahmedkhalf/project.nvim",                          -- Project searching
-        config = function() require('user/project') end
-    },
-    {
         "lukas-reineke/indent-blankline.nvim",              -- Indentation and whitespace characters
         main = "ibl",
         event = "VeryLazy",
@@ -81,15 +77,6 @@ return {
         "RRethy/vim-illuminate",
         event = "VeryLazy"
     },
-
-    -- Telescope
-    {
-        "nvim-telescope/telescope.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        config = function() require('user/telescope') end
-    },
-    -- requires CMake, but will basically just make fuzzy finding faster.
-    -- { 'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
 
     -- Treesitter
     {

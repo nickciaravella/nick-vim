@@ -69,7 +69,6 @@ keymap('n', '<leader>fg', function () require('telescope.builtin').git_files() e
 keymap('n', '<leader>sh', function () require('telescope.builtin').help_tags() end, { desc = '[S]earch [H]elp' })
 keymap('n', '<leader>sw', function () require('telescope.builtin').grep_string() end, { desc = '[S]earch current [W]ord' })
 keymap('n', '<leader>sg', function () require('telescope.builtin').live_grep() end, { desc = '[S]earch by [G]rep' })
-keymap('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
 keymap('n', '<leader>sr', function () require('telescope.builtin').resume() end, { desc = '[S]earch [R]esume' })
 
 -- LSP mappings
