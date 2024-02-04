@@ -29,30 +29,6 @@ return {
         config = function() require "user/popui" end
     },
 
-    -- Auto completions
-    {
-        "hrsh7th/nvim-cmp",
-        event = "VeryLazy",
-        config = function() require('user/cmp') end
-    },
-    { "hrsh7th/cmp-buffer", event = "VeryLazy" },
-    { "hrsh7th/cmp-path", event = "VeryLazy" },
-    { "hrsh7th/cmp-cmdline", event = "VeryLazy" },
-    { "hrsh7th/cmp-nvim-lsp", event = "VeryLazy" },
-    { 'hrsh7th/cmp-nvim-lsp-signature-help', event = "VeryLazy" },
-    { 'saadparwaiz1/cmp_luasnip', event = "VeryLazy" },
-    -- More sources can be found here: https://github.com/topics/nvim-cmp
-
-    -- Snippets
-    {
-        "L3MON4D3/LuaSnip",
-        event = "VeryLazy"
-    },
-    {
-        "rafamadriz/friendly-snippets",
-        event = "VeryLazy"
-    },
-
     -- LSP
     {
         "neovim/nvim-lspconfig",
