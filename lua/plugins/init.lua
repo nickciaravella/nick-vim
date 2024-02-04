@@ -3,16 +3,6 @@ return {
     { "nvim-lua/plenary.nvim" },                              -- Useful lua functions used by lots of plugins
     { "nvim-tree/nvim-web-devicons" },                        -- Icons for file tree and other plugins
     {
-        "goolord/alpha-nvim",                               -- Startup screen
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function() require('user/alpha') end
-    },
-    {
-        "numToStr/Comment.nvim",                            -- Commenting code
-        event = "VeryLazy",
-        config = function() require('user/comment') end
-    },
-    {
         "hood/popui.nvim",
         event = "VeryLazy",
         config = function() require "user/popui" end

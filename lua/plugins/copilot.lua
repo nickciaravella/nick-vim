@@ -1,6 +1,6 @@
 return {
     'github/copilot.vim',
-    event = 'VeryLazy',
+    event = 'BufRead',
     config = function ()
         vim.g.copilot_assume_mapped = true
     end
