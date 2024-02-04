@@ -1,6 +1,9 @@
 return {
     "numToStr/Comment.nvim",                            -- Commenting code
-    event = "BufRead",
+    keys = {
+        'gc',
+        'gcc'
+    },
     opts = {
         pre_hook = function(ctx)
             local U = require "Comment.utils"

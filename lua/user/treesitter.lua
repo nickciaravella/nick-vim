@@ -38,7 +38,3 @@ configs.setup {
     indent = { enable = true, disable = { "python", "css" } },
 }
 
-require('ts_context_commentstring').setup {
-    enable_autocmd = false,
-}
-
