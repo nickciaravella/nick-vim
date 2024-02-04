@@ -3,17 +3,6 @@ return {
     { "nvim-lua/plenary.nvim" },                              -- Useful lua functions used by lots of plugins
     { "nvim-tree/nvim-web-devicons" },                        -- Icons for file tree and other plugins
     {
-        "nvim-tree/nvim-tree.lua",                            --  File tree
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function() require('user/nvim-tree') end
-    },
-    {
-        "lukas-reineke/indent-blankline.nvim",              -- Indentation and whitespace characters
-        main = "ibl",
-        event = "VeryLazy",
-        config = function() require('user/indentline') end
-    },
-    {
         "goolord/alpha-nvim",                               -- Startup screen
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function() require('user/alpha') end
