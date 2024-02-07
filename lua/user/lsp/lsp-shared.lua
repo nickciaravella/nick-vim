@@ -12,7 +12,7 @@ M.servers = {
 	"cssls", -- CSS
 	"html", -- HTML
 	--"tsserver", -- Typescript -- Using typescript-tools instead.
-	"eslint",
+	--	"eslint",
 	"jsonls", -- JSON
 	"yamlls", -- YAML
 }
@@ -73,8 +73,9 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
+	M.setup()
 	-- Don't use the LSP for formatting Typescript, will be done by a formatter in Null-LS
-	if client.name == "tsserver" then
+	if client.name == "typescript-tools" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
 

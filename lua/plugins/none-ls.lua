@@ -7,7 +7,7 @@ return {
 			sources = {
 				null_ls.builtins.formatting.stylua,
 				null_ls.builtins.formatting.prettier, -- TODO: Look into prettierd
-				-- null_ls.builtins.diagnostics.eslint,  -- Using eslint lsp server instead.
+				null_ls.builtins.diagnostics.eslint, -- Using eslint lsp server instead.
 				-- null_ls.builtins.completion.spell,
 			},
 			on_attach = function(client, bufnr)
