@@ -8,7 +8,7 @@ return {
 			settings = {
 				tsserver_file_preferences = {
 					importModuleSpecifierPreference = "relative",
-					includeInlayFunctionParameterTypeHints = true,
+					includeInlayParameterNameHints = "all",
 				},
 			},
 		})

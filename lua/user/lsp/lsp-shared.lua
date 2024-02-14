@@ -12,8 +12,9 @@ M.servers = {
 	"cssls", -- CSS
 	"html", -- HTML
 	--"tsserver", -- Typescript -- Using typescript-tools instead.
-	--	"eslint",
+	"eslint",
 	"jsonls", -- JSON
+	"prismals", -- Prisma Schema files.
 	"yamlls", -- YAML
 }
 
@@ -67,25 +68,34 @@ end
 -- Keymaps for LSP related navigation
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true }
-	local keymap = vim.api.nvim_buf_set_keymap
-	keymap(bufnr, "n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "i", "C-k", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+
+	-- First becomes available around version 0.10
+	if vim.lsp.inlay_hint then
+		vim.keymap.set("n", "<leader>ih", function()
+			vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+		end, { desc = "Toggle [I]nlay [H]ints" })
+	end
 end
 
 M.on_attach = function(client, bufnr)
 	M.setup()
+
 	-- Don't use the LSP for formatting Typescript, will be done by a formatter in Null-LS
 	if client.name == "typescript-tools" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
-
+	if client.name == "eslint" then
+		client.server_capabilities.documentFormattingProvider = false
+	end
 	if client.name == "lua_ls" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
 
 	lsp_keymaps(bufnr)
-
-	-- Smart highlighting of other instances of a symbol
+	vim.lsp.inlay_hint.enable(bufnr, true)
 	illuminate.on_attach(client)
 end
 

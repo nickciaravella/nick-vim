@@ -111,6 +111,26 @@ return {
 				},
 			},
 			pickers = {
+				find_files = {
+					theme = "dropdown",
+					previewer = false,
+				},
+				oldfiles = {
+					theme = "dropdown",
+					previewer = false,
+				},
+				buffers = {
+					theme = "dropdown",
+					previewer = false,
+				},
+				git_files = {
+					theme = "dropdown",
+					previewer = false,
+				},
+				current_buffer_fuzzy_find = {
+					theme = "dropdown",
+					previewer = false,
+				},
 				planets = {
 					show_pluto = true,
 				},
@@ -141,10 +161,7 @@ return {
 		vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
 		vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
 		vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-		vim.keymap.set("n", "<leader>sc", function()
-			-- You can pass additional configuration to telescope to change theme, layout, etc.
-			builtin.current_buffer_fuzzy_find({ previewer = false })
-		end, { desc = "[S]earch in [C]urrent buffer" })
+		vim.keymap.set("n", "<leader>sc", builtin.current_buffer_fuzzy_find, { desc = "[S]earch in [C]urrent buffer" })
 		vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 
 		-- Go to XXX (note - no leader. Overriding LSP keymaps)
