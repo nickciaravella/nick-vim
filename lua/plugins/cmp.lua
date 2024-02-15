@@ -19,11 +19,13 @@ return {
 			"ray-x/cmp-treesitter",
 			"saadparwaiz1/cmp_luasnip",
 			"L3MON4D3/LuaSnip",
+			"zbirenbaum/copilot-cmp",
 			-- More sources can be found here: https://github.com/topics/nvim-cmp
 		},
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
+			require("copilot_cmp").setup()
 
 			local check_backspace = function()
 				local col = vim.fn.col(".") - 1
@@ -57,14 +59,26 @@ return {
 				Operator = "󰆕",
 				TypeParameter = " ",
 				Misc = " ",
+
+				-- Treesitter
+				String = "",
+				KeywordFunction = "󰌋",
+				Comment = "󰉿",
+
+				-- Copilot
+				Copilot = "󰚩",
 			}
 			-- find more here: https://www.nerdfonts.com/cheat-sheet
 
 			cmp.setup({
 				enabled = function()
 					local context = require("cmp.config.context")
+					local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+
 					local disable = context.in_treesitter_capture("comment")
-					disable = disable or context.in_treesitter_capture("string")
+					disable = disable or context.in_treesitter_capture("string_content")
+					disable = disable or buftype == "prompt"
+
 					return not disable
 				end,
 				snippet = {
@@ -114,13 +128,23 @@ return {
 				formatting = {
 					fields = { "kind", "abbr", "menu" },
 					format = function(entry, vim_item)
-						vim_item.menu = vim_item.kind
-						vim_item.kind = string.format("%s", kind_icons[vim_item.kind] or "")
+						if not kind_icons[vim_item.kind] then
+							vim.notify("No icon for " .. vim_item.kind)
+						end
+
+						vim_item.kind = string.format("%s", kind_icons[vim_item.kind] or "") .. " "
+						vim_item.menu = entry.source.name
+
+						if vim_item.menu == "treesitter" and vim_item.kind == "" then
+							vim_item.kind = ""
+						end
+
 						return vim_item
 					end,
 				},
 				sources = {
 					-- The order here is the order that autocompletions show up.
+					{ name = "copilot", max_item_count = 2 },
 					{ name = "luasnip" },
 					{
 						name = "nvim_lsp",

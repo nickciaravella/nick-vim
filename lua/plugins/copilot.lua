@@ -1,10 +1,10 @@
 return {
-	"github/copilot.vim",
-	config = function()
-		vim.g.copilot_assume_mapped = true
-	end,
-	keys = {
-		{ "<leader>ce", "<CMD>Copilot enable<CR>" },
-		{ "<leader>cd", "<CMD>Copilot disable<CR>" },
+	"zbirenbaum/copilot.lua",
+	cmd = "Copilot",
+	event = "InsertEnter",
+	opts = {
+		-- Disabling as they can interfere with copilot-cmp
+		suggestion = { enabled = false },
+		panel = { enabled = false },
 	},
 }
