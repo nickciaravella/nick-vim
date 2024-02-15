@@ -1,7 +1,4 @@
 vim.loader.enable() -- faster startup
--- vim.g.loaded_netrw = 1          -- using nvim-tree instead
--- vim.g.loaded_netrwPlugin =1     -- using nvim-tree instead
-vim.g.nvim_tree_disable_netrw = 0 -- Using this to enable :GBrowse. Maybe revert if NVimTree has issues..
 
 require("user.autocommands")
 require("user.keymaps")
