@@ -73,11 +73,11 @@ local function lsp_keymaps(bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 
 	-- First becomes available around version 0.10
-	if vim.lsp.inlay_hint then
-		vim.keymap.set("n", "<leader>ih", function()
-			vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
-		end, { desc = "Toggle [I]nlay [H]ints" })
-	end
+	-- if vim.lsp.inlay_hint then
+	-- 	vim.keymap.set("n", "<leader>ih", function()
+	-- 		vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+	-- 	end, { desc = "Toggle [I]nlay [H]ints" })
+	-- end
 end
 
 M.on_attach = function(client, bufnr)
@@ -95,7 +95,7 @@ M.on_attach = function(client, bufnr)
 	end
 
 	lsp_keymaps(bufnr)
-	vim.lsp.inlay_hint.enable(bufnr, true)
+	-- vim.lsp.inlay_hint.enable(bufnr, true)
 	illuminate.on_attach(client)
 end
 

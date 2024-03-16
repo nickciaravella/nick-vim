@@ -10,7 +10,7 @@ return {
 	},
 	{
 		"hrsh7th/nvim-cmp",
-		event = "BufRead",
+		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
@@ -26,11 +26,6 @@ return {
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
 			require("copilot_cmp").setup()
-
-			local check_backspace = function()
-				local col = vim.fn.col(".") - 1
-				return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
-			end
 
 			local kind_icons = {
 				Text = "󰉿",
@@ -66,7 +61,7 @@ return {
 				Comment = "󰉿",
 
 				-- Copilot
-				Copilot = "󰚩",
+				Copilot = "",
 			}
 			-- find more here: https://www.nerdfonts.com/cheat-sheet
 
@@ -92,21 +87,22 @@ return {
 					["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
 					["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
 					["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-					["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-					["<C-e>"] = cmp.mapping({
-						i = cmp.mapping.abort(),
-						c = cmp.mapping.close(),
+					["<C-p>"] = cmp.mapping.complete({
+						config = {
+							sources = {
+								{ name = "copilot" },
+							},
+						},
 					}),
-					-- Accept currently selected item. If none selected, `select` first item.
-					-- Set `select` to `false` to only confirm explicitly selected items.
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+					["<CR>"] = cmp.mapping.confirm(),
 					["<Tab>"] = cmp.mapping(function(fallback)
 						if luasnip.expandable() then
 							luasnip.expand()
 						elseif luasnip.expand_or_jumpable() then
 							luasnip.expand_or_jump()
-						elseif check_backspace() then
-							fallback()
+						elseif cmp.visible() then
+							cmp.confirm({ select = true })
 						else
 							fallback()
 						end
@@ -143,8 +139,6 @@ return {
 					end,
 				},
 				sources = {
-					-- The order here is the order that autocompletions show up.
-					{ name = "copilot", max_item_count = 2 },
 					{ name = "luasnip" },
 					{
 						name = "nvim_lsp",
@@ -172,7 +166,7 @@ return {
 					},
 				},
 				experimental = {
-					ghost_text = true,
+					ghost_text = false,
 					native_menu = false,
 				},
 			})
