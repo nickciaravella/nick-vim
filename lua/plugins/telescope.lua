@@ -24,6 +24,9 @@ return {
 				require("project_nvim").setup(opts)
 			end,
 		},
+		{
+			"Myzel394/jsonfly.nvim",
+		},
 	},
 	config = function()
 		local telescope = require("telescope")
@@ -148,6 +151,7 @@ return {
 		telescope.load_extension("aerial")
 		telescope.load_extension("projects")
 		telescope.load_extension("fzf")
+		telescope.load_extension("jsonfly")
 
 		-- Set keymaps
 
