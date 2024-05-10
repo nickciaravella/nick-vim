@@ -87,39 +87,17 @@ return {
 					["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
 					["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
 					["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-					["<C-p>"] = cmp.mapping.complete({
-						config = {
-							sources = {
-								{ name = "copilot" },
-							},
-						},
-					}),
-					["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-					["<CR>"] = cmp.mapping.confirm(),
-					["<Tab>"] = cmp.mapping(function(fallback)
-						if luasnip.expandable() then
-							luasnip.expand()
-						elseif luasnip.expand_or_jumpable() then
+					["<C-y>"] = cmp.mapping.confirm({ select = true }),
+					["<C-l>"] = cmp.mapping(function()
+						if luasnip.expand_or_locally_jumpable() then
 							luasnip.expand_or_jump()
-						elseif cmp.visible() then
-							cmp.confirm({ select = true })
-						else
-							fallback()
 						end
-					end, {
-						"i",
-						"s",
-					}),
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if luasnip.jumpable(-1) then
+					end, { "i", "s" }),
+					["<C-h>"] = cmp.mapping(function()
+						if luasnip.locally_jumpable(-1) then
 							luasnip.jump(-1)
-						else
-							fallback()
 						end
-					end, {
-						"i",
-						"s",
-					}),
+					end, { "i", "s" }),
 				},
 				formatting = {
 					fields = { "kind", "abbr", "menu" },
@@ -139,6 +117,7 @@ return {
 					end,
 				},
 				sources = {
+					{ name = "copilot" },
 					{ name = "luasnip" },
 					{
 						name = "nvim_lsp",
@@ -166,7 +145,7 @@ return {
 					},
 				},
 				experimental = {
-					ghost_text = false,
+					ghost_text = true,
 					native_menu = false,
 				},
 			})
