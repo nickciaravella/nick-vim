@@ -64,5 +64,5 @@ keymap("x", "K", ":m '<-2<CR>gv=gv", opts)
 keymap("x", "<A-j>", ":m '>+1<CR>gv=gv", opts)
 keymap("x", "<A-k>", ":m '<-2<CR>gv=gv", opts)
 
--- Netrw
-keymap("n", "<C-e>", "<CMD>Explore<CR>", opts)
+-- Netrw - Using Oil.nvim instead
+-- keymap("n", "<C-e>", "<CMD>Explore<CR>", opts)
