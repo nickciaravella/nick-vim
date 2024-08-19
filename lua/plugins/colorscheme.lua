@@ -28,4 +28,13 @@ return {
 			vim.cmd("colorscheme " .. colorscheme)
 		end,
 	},
+	{
+		"rebelot/kanagawa.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			-- to see it, rerun after everytinng else loads
+			-- require("kanagawa").load("dragon")
+		end,
+	},
 }

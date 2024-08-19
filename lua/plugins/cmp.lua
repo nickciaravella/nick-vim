@@ -23,6 +23,7 @@ return {
 			-- More sources can be found here: https://github.com/topics/nvim-cmp
 		},
 		config = function()
+			print("starting nvim cmp")
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
 			require("copilot_cmp").setup()

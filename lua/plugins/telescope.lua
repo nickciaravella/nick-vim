@@ -160,6 +160,12 @@ return {
 		vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "[F]ind [R]ecently opened files" })
 		vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[F]ind existing [B]uffers" })
 		vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "[F]ind [G]it files" })
+		vim.keymap.set("n", "<leader>fc", function()
+			builtin.lsp_dynamic_workspace_symbols({ symbols = { "class" } })
+		end, { desc = "[F]ind [C]lass" })
+		vim.keymap.set("n", "<leader>fs", function()
+			builtin.lsp_dynamic_workspace_symbols({ symbols = { "class", "function", "method" } })
+		end, { desc = "[F]ind [S]ymbols" })
 
 		-- Search XXX
 		vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })

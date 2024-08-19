@@ -7,22 +7,22 @@ local illuminate = require("illuminate")
 -- These are LspConfig server names, see here:
 -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
 M.servers = {
-	"jedi_language_server", -- Python
-	"lua_ls", -- Lua
 	"cssls", -- CSS
-	"html", -- HTML
-	--"tsserver", -- Typescript -- Using typescript-tools instead.
 	"eslint",
+	"html", -- HTML
+	"jedi_language_server", -- Python
 	"jsonls", -- JSON
+	"lua_ls", -- Lua
 	"prismals", -- Prisma Schema files.
+	"tailwindcss", -- Tailwind CSS
+	--"tsserver", -- Typescript -- Using typescript-tools instead.
 	"yamlls", -- YAML
 }
 
 -- Configure capabilities to have autocomplete
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-M.capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+M.capabilities =
+	vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), cmp_nvim_lsp.default_capabilities())
+M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Setup styles
 M.setup = function()
@@ -83,15 +83,20 @@ end
 M.on_attach = function(client, bufnr)
 	M.setup()
 
-	-- Don't use the LSP for formatting Typescript, will be done by a formatter in Null-LS
+	-- Don't use the LSP for formatting Typescript, will be done by conform.nvim
 	if client.name == "typescript-tools" then
-		client.server_capabilities.documentFormattingProvider = false
-	end
-	if client.name == "eslint" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
 	if client.name == "lua_ls" then
 		client.server_capabilities.documentFormattingProvider = false
+	end
+	if client.name == "eslint" then
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.workspaceSymbolProvider = false
+	end
+	if client.name == "copilot" then
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.workspaceSymbolProvider = false
 	end
 
 	lsp_keymaps(bufnr)

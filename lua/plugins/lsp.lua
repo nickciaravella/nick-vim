@@ -10,26 +10,41 @@ vim.keymap.set("n", "<C-.>", "<CMD>lua vim.lsp.buf.code_action()<CR>", { desc = 
 return {
 	{
 		"williamboman/mason.nvim",
-		opts = {
-			ui = {
-				border = "none",
-				icons = {
-					package_installed = "◍",
-					package_pending = "◍",
-					package_uninstalled = "◍",
-				},
-			},
-			log_level = vim.log.levels.INFO,
-			max_concurrent_installers = 4,
+		dependencies = {
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
 		},
+		config = function()
+			local mason = require("mason")
+			mason.setup({
+				ui = {
+					border = "none",
+					icons = {
+						package_installed = "◍",
+						package_pending = "◍",
+						package_uninstalled = "◍",
+					},
+				},
+				log_level = vim.log.levels.INFO,
+				max_concurrent_installers = 4,
+			})
+
+			local mason_tool_installer = require("mason-tool-installer")
+			mason_tool_installer.setup({
+				-- linters
+				ensure_installed = {
+					"prettierd",
+					"cspell",
+				},
+			})
+		end,
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
 		event = "VeryLazy",
 		opts = function()
-			-- local mason_servers = table.insert(shared.servers, "tsserver")
 			return {
-				ensure_installed = shared.servers, --mason_servers,
+				-- lsp servers
+				ensure_installed = shared.servers,
 				automatic_installation = true,
 			}
 		end,

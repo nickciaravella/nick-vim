@@ -42,6 +42,15 @@ return {
 				disable = { "css" },
 			},
 			indent = { enable = true, disable = { "python", "css" } },
+			incremental_selection = {
+				enable = true,
+				keymaps = {
+					init_selection = "<CR>",
+					node_incremental = "<CR>",
+					scope_incremental = "n",
+					node_decremental = "N",
+				},
+			},
 			textobjects = {
 				select = {
 					enable = true,
