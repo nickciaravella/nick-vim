@@ -57,13 +57,13 @@ M.setup = function()
 
 	vim.diagnostic.config(config)
 
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "rounded",
-	})
-
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "rounded",
-	})
+	-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+	-- 	border = "rounded",
+	-- })
+	--
+	-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+	-- 	border = "rounded",
+	-- })
 end
 -- Keymaps for LSP related navigation
 local function lsp_keymaps(bufnr)
@@ -73,11 +73,9 @@ local function lsp_keymaps(bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 
 	-- First becomes available around version 0.10
-	-- if vim.lsp.inlay_hint then
-	-- 	vim.keymap.set("n", "<leader>ih", function()
-	-- 		vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
-	-- 	end, { desc = "Toggle [I]nlay [H]ints" })
-	-- end
+	vim.keymap.set("n", "<leader>ih", function()
+		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+	end, { desc = "Toggle [I]nlay [H]ints" })
 end
 
 M.on_attach = function(client, bufnr)

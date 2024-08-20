@@ -23,7 +23,6 @@ return {
 			-- More sources can be found here: https://github.com/topics/nvim-cmp
 		},
 		config = function()
-			print("starting nvim cmp")
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
 			require("copilot_cmp").setup()
@@ -104,7 +103,7 @@ return {
 					fields = { "kind", "abbr", "menu" },
 					format = function(entry, vim_item)
 						if not kind_icons[vim_item.kind] then
-							vim.notify("No icon for " .. vim_item.kind)
+							-- vim.notify("No icon for " .. vim_item.kind)
 						end
 
 						vim_item.kind = string.format("%s", kind_icons[vim_item.kind] or "") .. " "
