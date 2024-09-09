@@ -10,6 +10,18 @@ return {
 		{
 			"Myzel394/jsonfly.nvim",
 		},
+		{
+			"ahmedkhalf/project.nvim",
+			config = function()
+				require("project_nvim").setup({
+					detection_methods = { "pattern" },
+					patterns = {
+						"package.json",
+					},
+					exclude_dirs = { "/opt/homebrew", "~/*/node_modules/*", "~/*/prisma/generated/*" },
+				})
+			end,
+		},
 	},
 	config = function()
 		local telescope = require("telescope")
@@ -30,8 +42,7 @@ return {
 				},
 				prompt_prefix = " ",
 				selection_caret = " ",
-				path_display = { "smart" },
-
+				path_display = { "filename_first" },
 				mappings = {
 					i = {
 						["<C-n>"] = actions.cycle_history_next,
@@ -134,37 +145,46 @@ return {
 		telescope.load_extension("aerial")
 		telescope.load_extension("fzf")
 		telescope.load_extension("jsonfly")
+		telescope.load_extension("projects")
+		telescope.load_extension("notify")
 
 		-- Set keymaps
 
 		-- Find XXX
-		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[F]ind [F]iles" })
-		vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "[F]ind [R]ecently opened files" })
-		vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[F]ind existing [B]uffers" })
-		vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "[F]ind [G]it files" })
-		vim.keymap.set("n", "<leader>fc", function()
-			builtin.lsp_dynamic_workspace_symbols({ symbols = { "class" } })
-		end, { desc = "[F]ind [C]lass" })
+		vim.keymap.set("n", "<leader>ff", function()
+			local opts = { hidden = true }
+			local cwd = vim.fn.getcwd()
+			local is_inside_work_tree = {}
+			if is_inside_work_tree[cwd] == nil then
+				vim.fn.system("git rev-parse --is-inside-work-tree")
+				is_inside_work_tree[cwd] = vim.v.shell_error == 0
+			end
+
+			if is_inside_work_tree[cwd] then
+				require("telescope.builtin").git_files(opts)
+			else
+				require("telescope.builtin").find_files(opts)
+			end
+		end)
+		vim.keymap.set("n", "<leader>fb", builtin.buffers)
+		vim.keymap.set("n", "<leader>fp", "<CMD>Telescope projects<CR>")
 		vim.keymap.set("n", "<leader>fs", function()
 			builtin.lsp_dynamic_workspace_symbols({ symbols = { "class", "function", "method" } })
-		end, { desc = "[F]ind [S]ymbols" })
+		end)
+		vim.keymap.set("n", "<leader>ft", builtin.live_grep)
+		vim.keymap.set("v", "<leader>fw", "y<ESC>:Telescope live_grep default_text=<c-r>0<CR>") -- Find currenlty highlighted word
+		vim.keymap.set("n", "<leader>fw", "yiw<ESC>:Telescope live_grep default_text=<c-r>0<CR>") -- Find word under cursor
 
-		-- Search XXX
-		vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-		vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
-		vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-		vim.keymap.set("n", "<leader>sc", builtin.current_buffer_fuzzy_find, { desc = "[S]earch in [C]urrent buffer" })
-		vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
+		vim.keymap.set("n", "<leader>fr", builtin.resume)
+		vim.keymap.set("n", "<leader>fh", builtin.help_tags)
+		vim.keymap.set("n", "<leader>fk", builtin.keymaps)
+		vim.keymap.set("n", "<leader>fm", "<CMD>Telescope notify<CR>")
 
 		-- Go to XXX (note - no leader. Overriding LSP keymaps)
-		vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "[G]o to [D]efinition" })
-		vim.keymap.set("n", "gr", builtin.lsp_references, { desc = "[G]o to [R]eferences" })
-		vim.keymap.set("n", "gs", builtin.lsp_document_symbols, { desc = "[G]o to [S]ymbols" })
-		vim.keymap.set("n", "gi", builtin.lsp_implementations, { desc = "[G]o to [I]mplementations" })
-		vim.keymap.set("n", "gt", builtin.lsp_type_definitions, { desc = "[G]o to [T]ype Defintion" })
-		vim.keymap.set("n", "go", "<CMD>Telescope aerial<CR>", { desc = "[G]o to [O]utline" })
-
-		-- Diagnostics
-		vim.keymap.set("n", "<leader>dl", require("telescope.builtin").diagnostics, { desc = "[D]iagnostics [L]ist" })
+		vim.keymap.set("n", "gd", builtin.lsp_definitions)
+		vim.keymap.set("n", "gr", builtin.lsp_references)
+		vim.keymap.set("n", "gs", builtin.lsp_document_symbols)
+		vim.keymap.set("n", "gi", builtin.lsp_implementations)
+		vim.keymap.set("n", "gt", builtin.lsp_type_definitions)
 	end,
 }

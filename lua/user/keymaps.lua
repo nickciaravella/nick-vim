@@ -66,3 +66,24 @@ keymap("x", "<A-k>", ":m '<-2<CR>gv=gv", opts)
 
 -- Netrw - Using Oil.nvim instead
 -- keymap("n", "<C-e>", "<CMD>Explore<CR>", opts)
+
+-- Terminal stuff
+keymap("n", "<leader>tv", function()
+	vim.api.nvim_command("vsplit")
+	vim.api.nvim_command("terminal")
+end, opts)
+
+keymap("n", "<leader>ts", function()
+	vim.api.nvim_command("split")
+	vim.api.nvim_command("terminal")
+end, opts)
+
+-- Automatically enter insert mode when entering a terminal buffer`
+vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
+	pattern = { "*" },
+	callback = function()
+		if vim.opt.buftype:get() == "terminal" then
+			vim.cmd(":startinsert")
+		end
+	end,
+})

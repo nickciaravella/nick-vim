@@ -5,7 +5,8 @@ return {
 	opts = {
 		options = {
 			icons_enabled = true,
-			theme = "tokyonight",
+			theme = "catppuccin",
+			-- theme = "tokyonight",
 			component_separators = { left = "", right = "" },
 			section_separators = { left = "", right = "" },
 			disabled_filetypes = {
@@ -24,7 +25,7 @@ return {
 		sections = {
 			lualine_a = { "mode" },
 			lualine_b = { "branch" },
-			lualine_c = { "buffers" },
+			lualine_c = {}, -- "buffers" },
 			lualine_x = { "diff" },
 			lualine_y = { "filetype" },
 			lualine_z = { "location" },
@@ -32,7 +33,7 @@ return {
 		inactive_sections = {
 			lualine_a = { "mode" },
 			lualine_b = { "branch" },
-			lualine_c = { "filename" },
+			lualine_c = {}, --"filename" },
 			lualine_x = {},
 			lualine_y = { "filetype" },
 			lualine_z = { "location" },

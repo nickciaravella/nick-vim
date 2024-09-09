@@ -4,7 +4,6 @@ local shared = require("user.lsp.lsp-shared")
 vim.keymap.set("n", "<S-k>", "<CMD>lua vim.lsp.buf.hover()<CR>")
 vim.keymap.set("n", "[d", "<CMD>lua vim.diagnostic.goto_prev()<CR>", { desc = "[D]iagnostics - Previous" })
 vim.keymap.set("n", "]d", "<CMD>lua vim.diagnostic.goto_next()<CR>", { desc = "[D]iagnostics - Next" })
-vim.keymap.set("n", "<leader>ds", "<CMD>lua vim.diagnostic.open_float()<CR>", { desc = "[D]iagnostics - [S]how" })
 vim.keymap.set("n", "<C-.>", "<CMD>lua vim.lsp.buf.code_action()<CR>", { desc = "[D]iagnostics - [F]ix" })
 
 return {
