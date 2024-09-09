@@ -8,7 +8,6 @@ return {
 				flavour = "mocha",
 				integrations = {
 					aerial = true,
-					alpha = true,
 					cmp = true,
 					diffview = true,
 					gitsigns = true,
@@ -35,11 +34,11 @@ return {
 							ok = { "italic" },
 						},
 						underlines = {
-							errors = { "underline" },
-							hints = { "underline" },
-							warnings = { "underline" },
-							information = { "underline" },
-							ok = { "underline" },
+							errors = { "undercurl" },
+							hints = { "undercurl" },
+							warnings = { "undercurl" },
+							information = { "undercurl" },
+							ok = { "undercurl" },
 						},
 						inlay_hints = {
 							background = true,
@@ -49,7 +48,6 @@ return {
 						enabled = true,
 						custom_bg = "NONE", -- "lualine" will set background to mantle
 					},
-					nvim_surround = true,
 					telescope = true,
 					lsp_trouble = true,
 					dadbod_ui = true,
@@ -64,42 +62,42 @@ return {
 			vim.cmd("colorscheme " .. colorscheme)
 		end,
 	},
-	{
-		"lunarvim/darkplus.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {},
-		config = function()
-			-- local colorscheme = "darkplus"
-			-- vim.cmd("colorscheme " .. colorscheme)
-		end,
-	},
-	{
-		"ful1e5/onedark.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {},
-		config = function()
-			-- local colorscheme = "onedark"
-			-- vim.cmd("colorscheme " .. colorscheme)
-		end,
-	},
-	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			-- local colorscheme = "tokyonight-night"
-			-- vim.cmd("colorscheme " .. colorscheme)
-		end,
-	},
-	{
-		"rebelot/kanagawa.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			-- to see it, rerun after everytinng else loads
-			-- require("kanagawa").load("dragon")
-		end,
-	},
+	-- {
+	-- 	"lunarvim/darkplus.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		local colorscheme = "darkplus"
+	-- 		vim.cmd("colorscheme " .. colorscheme)
+	-- 	end,
+	-- },
+	-- {
+	-- 	"ful1e5/onedark.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		vim.cmd("colorscheme " .. colorscheme)
+	-- 		local colorscheme = "onedark"
+	-- 	end,
+	-- },
+	-- {
+	-- 	"folke/tokyonight.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		local colorscheme = "tokyonight-night"
+	-- 		vim.cmd("colorscheme " .. colorscheme)
+	-- 	end,
+	-- },
+	-- {
+	-- 	"rebelot/kanagawa.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		-- to see it, rerun after everytinng else loads
+	-- 		require("kanagawa").load("dragon")
+	-- 	end,
+	-- },
 }

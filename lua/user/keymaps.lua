@@ -87,3 +87,8 @@ vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
 		end
 	end,
 })
+
+-- Close popup if left hanging. Only does the current window.
+vim.api.nvim_create_user_command("PopupClose", function()
+	vim.api.nvim_win_close(0, true)
+end, {})

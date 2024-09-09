@@ -151,21 +151,7 @@ return {
 		-- Set keymaps
 
 		-- Find XXX
-		vim.keymap.set("n", "<leader>ff", function()
-			local opts = { hidden = true }
-			local cwd = vim.fn.getcwd()
-			local is_inside_work_tree = {}
-			if is_inside_work_tree[cwd] == nil then
-				vim.fn.system("git rev-parse --is-inside-work-tree")
-				is_inside_work_tree[cwd] = vim.v.shell_error == 0
-			end
-
-			if is_inside_work_tree[cwd] then
-				require("telescope.builtin").git_files(opts)
-			else
-				require("telescope.builtin").find_files(opts)
-			end
-		end)
+		vim.keymap.set("n", "<leader>ff", builtin.find_files)
 		vim.keymap.set("n", "<leader>fb", builtin.buffers)
 		vim.keymap.set("n", "<leader>fp", "<CMD>Telescope projects<CR>")
 		vim.keymap.set("n", "<leader>fs", function()
