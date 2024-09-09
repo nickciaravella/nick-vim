@@ -84,6 +84,13 @@ M.on_attach = function(client, bufnr)
 	-- Don't use the LSP for formatting Typescript, will be done by conform.nvim
 	if client.name == "typescript-tools" then
 		client.server_capabilities.documentFormattingProvider = false
+
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = bufnr,
+			callback = function()
+				vim.cmd("TSToolsOrganizeImports")
+			end,
+		})
 	end
 	if client.name == "lua_ls" then
 		client.server_capabilities.documentFormattingProvider = false

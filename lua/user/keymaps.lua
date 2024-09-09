@@ -38,6 +38,15 @@ keymap("n", "<leader>won", ":%bd|e#|bd#<CR>", opts)
 keymap("n", "<A-j>", ":m .+1<CR>==", opts)
 keymap("n", "<A-k>", ":m .-2<CR>==", opts)
 
+-- Toggle relative line numbers
+keymap("n", "<leader>ln", function()
+	if vim.api.nvim_get_option_value("relativenumber", {}) then
+		vim.api.nvim_command("set norelativenumber")
+	else
+		vim.api.nvim_command("set relativenumber")
+	end
+end)
+
 -- Insert --
 -- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)

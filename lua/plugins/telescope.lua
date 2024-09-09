@@ -139,6 +139,9 @@ return {
 					override_file_sorter = true, -- override the file sorter
 					case_mode = "smart_case", -- "ignore_case", "respect_case" or "smart_case"
 				},
+				aerial = {
+					show_columns = "symbols", -- symbols, lines, both
+				},
 			},
 		})
 

@@ -10,7 +10,6 @@ return {
 		local neogit = require("neogit")
 		neogit.setup({
 			kind = "vsplit",
-			commit_editor = { kind = "floating" },
 		})
 
 		vim.keymap.set("n", "<leader>go", "<CMD>Neogit<CR>")
