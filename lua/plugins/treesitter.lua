@@ -39,7 +39,13 @@ return {
 			sync_install = false,
 			highlight = {
 				enable = true,
-				disable = { "css" },
+				disable = function(lang, bufnr)
+					if vim.api.nvim_buf_line_count(bufnr) > 2000 then
+						vim.notify("Disabling Treesitter for large file", vim.log.levels.INFO, { title = "Treesitter" })
+						return true
+					end
+					return lang == "css"
+				end,
 			},
 			indent = { enable = true, disable = { "python", "css" } },
 			incremental_selection = {

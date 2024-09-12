@@ -84,14 +84,25 @@ M.on_attach = function(client, bufnr)
 	-- Don't use the LSP for formatting Typescript, will be done by conform.nvim
 	if client.name == "typescript-tools" then
 		client.server_capabilities.documentFormattingProvider = false
-
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			buffer = bufnr,
-			callback = function()
-				vim.cmd("TSToolsOrganizeImports")
-			end,
-		})
 	end
+
+	if client.name == "eslint" or client.name == "tailwindcss" or client.name == "copilot" then
+		-- These LSPs provide no value to readonly typing files, and on very large ones that we get to
+		-- from "go to definition", it slows down the editor unnecessarily.
+		-- Using defer_fn because there is currently no "should_attach" callback and we can only detach after
+		-- the LSP has completed attaching.
+		if string.find(vim.api.nvim_buf_get_name(bufnr), ".d.ts$") then
+			vim.defer_fn(function()
+				vim.lsp.buf_detach_client(bufnr, client.id)
+				vim.notify(
+					"Detached " .. client.name .. " from .d.ts file.",
+					vim.log.levels.INFO,
+					{ title = "LSP Detached" }
+				)
+			end, 500)
+		end
+	end
+
 	if client.name == "lua_ls" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
@@ -105,7 +116,6 @@ M.on_attach = function(client, bufnr)
 	end
 
 	lsp_keymaps(bufnr)
-	-- vim.lsp.inlay_hint.enable(bufnr, true)
 	illuminate.on_attach(client)
 end
 
