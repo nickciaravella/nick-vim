@@ -1,7 +1,6 @@
 local M = {}
 
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
-local illuminate = require("illuminate")
 
 -- Servers that will be installed by mason-lspconfig and configured by nvim-lspconfig
 -- These are LspConfig server names, see here:
@@ -68,9 +67,8 @@ end
 -- Keymaps for LSP related navigation
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true }
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "i", "C-k", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>hi", "<CMD>lua vim.lsp.buf.document_highlight()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ho", "<CMD>lua vim.lsp.buf.clear_references()<CR>", opts)
 
 	-- First becomes available around version 0.10
 	vim.keymap.set("n", "<leader>ih", function()
@@ -116,7 +114,6 @@ M.on_attach = function(client, bufnr)
 	end
 
 	lsp_keymaps(bufnr)
-	illuminate.on_attach(client)
 end
 
 return M

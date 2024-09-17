@@ -27,6 +27,7 @@ return {
 			hover = {
 				silent = true,
 			},
+			progress = { enabled = false },
 			signature = {
 				auto_open = {
 					throttle = 50, -- Debounce lsp signature help request by 50ms

@@ -51,10 +51,6 @@ return {
 					telescope = true,
 					lsp_trouble = true,
 					dadbod_ui = true,
-					illuminate = {
-						enabled = true,
-						lsp = true,
-					},
 				},
 			})
 
