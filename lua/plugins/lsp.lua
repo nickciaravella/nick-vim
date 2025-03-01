@@ -31,6 +31,7 @@ return {
 			mason_tool_installer.setup({
 				-- linters
 				ensure_installed = {
+					"golangci-lint",
 					"prettierd",
 					"cspell",
 				},

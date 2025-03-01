@@ -7,6 +7,7 @@ local cmp_nvim_lsp = require("cmp_nvim_lsp")
 -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
 M.servers = {
 	"cssls", -- CSS
+	"gopls", -- Go
 	"eslint",
 	"html", -- HTML
 	"jedi_language_server", -- Python
@@ -55,7 +56,6 @@ M.setup = function()
 	}
 
 	vim.diagnostic.config(config)
-
 	-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 	-- 	border = "rounded",
 	-- })
@@ -82,6 +82,7 @@ M.on_attach = function(client, bufnr)
 	-- Don't use the LSP for formatting Typescript, will be done by conform.nvim
 	if client.name == "typescript-tools" then
 		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.textDocument_prepareCallHierarchy = true
 	end
 
 	if client.name == "eslint" or client.name == "tailwindcss" or client.name == "copilot" then

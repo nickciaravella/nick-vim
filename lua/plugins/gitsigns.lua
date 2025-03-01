@@ -77,7 +77,7 @@ return {
 				gs.toggle_deleted()
 			end)
 			map("n", "<leader>gb", gs.toggle_current_line_blame)
-			map("n", "<leader>gs", function()
+			map("n", "<leader>gS", function()
 				gs.toggle_signs()
 				gs.toggle_numhl()
 			end)

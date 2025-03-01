@@ -1,7 +1,7 @@
 vim.loader.enable() -- faster startup
 
 require("user.options")
-if (vim.g.vscode) then
+if vim.g.vscode then
 	require("user.vsc")
 else
 	require("user.autocommands")

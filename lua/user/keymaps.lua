@@ -17,6 +17,11 @@ vim.g.maplocalleader = " "
 --   command_mode = "c",
 
 -- Normal --
+
+-- Open buffer changing
+keymap("n", "<C-p>", "<C-^>", opts)
+keymap("n", "<leader><tab>", ":b<space>", opts)
+
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
@@ -64,7 +69,7 @@ keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
 keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
 
 -- Hold onto pasted line
-keymap("v", "p", '"_dP', opts)
+keymap("v", "p", "<s-p>", opts)
 
 -- Visual Block --
 -- Move text up and down

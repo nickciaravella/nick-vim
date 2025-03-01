@@ -87,6 +87,15 @@ return {
 					["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
 					["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
 					["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+					["<C-p>"] = cmp.mapping(function(fallback)
+						cmp.complete({
+							config = {
+								sources = {
+									{ name = "copilot" },
+								},
+							},
+						})
+					end, { "i", "c" }),
 					["<C-y>"] = cmp.mapping.confirm({ select = true }),
 					["<C-l>"] = cmp.mapping(function()
 						if luasnip.expand_or_locally_jumpable() then
@@ -118,7 +127,7 @@ return {
 				},
 				sources = {
 					-- { name = "copilot" },
-					{ name = "luasnip" },
+					-- { name = "luasnip" },
 					{
 						name = "nvim_lsp",
 						-- entry_filter = function(entry, context)

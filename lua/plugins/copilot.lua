@@ -4,7 +4,7 @@ return {
 	event = "InsertEnter",
 	opts = {
 		-- Disabling as they can interfere with copilot-cmp
-		suggestion = { enabled = false },
-		panel = { enabled = false },
+		-- suggestion = { enabled = false },
+		-- panel = { enabled = false },
 	},
 }

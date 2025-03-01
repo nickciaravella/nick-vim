@@ -8,6 +8,7 @@ return {
 		local lint = require("lint")
 
 		lint.linters_by_ft = {
+			go = { "cspell", "golangcilint" },
 			javascript = { "cspell" },
 			typescript = { "cspell" },
 			javascriptreact = { "cspell" },

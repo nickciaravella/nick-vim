@@ -154,25 +154,25 @@ return {
 		-- Set keymaps
 
 		-- Find XXX
-		vim.keymap.set("n", "<leader>ff", builtin.find_files)
-		vim.keymap.set("n", "<leader>fb", builtin.buffers)
-		vim.keymap.set("n", "<leader>fp", "<CMD>Telescope projects<CR>")
-		vim.keymap.set("n", "<leader>fs", function()
-			builtin.lsp_dynamic_workspace_symbols({ symbols = { "class", "function", "method" } })
-		end)
-		vim.keymap.set("n", "<leader>ft", builtin.live_grep)
-		vim.keymap.set("v", "<leader>fw", "y<ESC>:Telescope live_grep default_text=<c-r>0<CR>") -- Find currenlty highlighted word
-		vim.keymap.set("n", "<leader>fw", "yiw<ESC>:Telescope live_grep default_text=<c-r>0<CR>") -- Find word under cursor
-
-		vim.keymap.set("n", "<leader>fr", builtin.resume)
-		vim.keymap.set("n", "<leader>fh", builtin.help_tags)
-		vim.keymap.set("n", "<leader>fk", builtin.keymaps)
-		vim.keymap.set("n", "<leader>fm", "<CMD>Telescope notify<CR>")
-
-		-- Go to XXX (note - no leader. Overriding LSP keymaps)
-		vim.keymap.set("n", "gd", builtin.lsp_definitions)
-		vim.keymap.set("n", "gr", builtin.lsp_references)
-		vim.keymap.set("n", "gs", builtin.lsp_document_symbols)
-		vim.keymap.set("n", "gi", builtin.lsp_implementations)
+		-- vim.keymap.set("n", "<leader>ff", builtin.find_files)
+		-- vim.keymap.set("n", "<leader>fb", builtin.buffers)
+		-- vim.keymap.set("n", "<leader>fp", "<CMD>Telescope projects<CR>")
+		-- vim.keymap.set("n", "<leader>fs", function()
+		-- 	builtin.lsp_dynamic_workspace_symbols({ symbols = { "class", "function", "method" } })
+		-- end)
+		-- vim.keymap.set("n", "<leader>ft", builtin.live_grep)
+		-- vim.keymap.set("v", "<leader>fw", "y<ESC>:Telescope live_grep default_text=<c-r>0<CR>") -- Find currenlty highlighted word
+		-- vim.keymap.set("n", "<leader>fw", "yiw<ESC>:Telescope live_grep default_text=<c-r>0<CR>") -- Find word under cursor
+		--
+		-- vim.keymap.set("n", "<leader>fr", builtin.resume)
+		-- vim.keymap.set("n", "<leader>fh", builtin.help_tags)
+		-- vim.keymap.set("n", "<leader>fk", builtin.keymaps)
+		-- vim.keymap.set("n", "<leader>fm", "<CMD>Telescope notify<CR>")
+		--
+		-- -- Go to XXX (note - no leader. Overriding LSP keymaps)
+		-- vim.keymap.set("n", "gd", builtin.lsp_definitions)
+		-- vim.keymap.set("n", "gr", builtin.lsp_references)
+		-- vim.keymap.set("n", "gs", builtin.lsp_document_symbols)
+		-- vim.keymap.set("n", "gi", builtin.lsp_implementations)
 	end,
 }

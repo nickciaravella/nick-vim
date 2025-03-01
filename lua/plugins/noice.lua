@@ -17,6 +17,9 @@ return {
 	},
 	event = "VeryLazy",
 	opts = {
+		cmdline = {
+			view = "cmdline_popup",
+		},
 		lsp = {
 			-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
 			override = {
@@ -36,14 +39,27 @@ return {
 		},
 		-- you can enable a preset for easier configuration
 		presets = {
+			-- command_palette = true,
 			lsp_doc_border = true, -- add a border to hover docs and signature help
 		},
 		messages = {
 			enabled = true,
+			view = "mini",
 		},
 		notify = {
 			enabled = true,
+			view = "mini",
 		},
 		views = {},
+		-- routes = {
+		-- 	{
+		-- 		filter = {
+		-- 			event = "msg_show",
+		-- 			kind = "",
+		-- 			find = "written",
+		-- 		},
+		-- 		opts = { skip = true },
+		-- 	},
+		-- },
 	},
 }
