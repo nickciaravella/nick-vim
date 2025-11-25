@@ -1,6 +1,9 @@
 local opts = { noremap = true, silent = true }
 local vscode = require("vscode")
 
+-- Bug in VSCode plugin that pops output window for searches and other random stuff.
+vim.o.cmdheight = 4
+
 --Remap space as leader key
 vim.keymap.set("n", "<SPACE>", "<NOP>", opts)
 vim.g.mapleader = " "

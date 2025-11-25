@@ -97,6 +97,13 @@ return {
 			end,
 			nowait = true,
 		},
+		-- Terminal
+		{
+			"<leader>t",
+			function()
+				require("snacks").terminal.toggle()
+			end,
+		},
 	},
 	opts = {
 		dashboard = {
@@ -186,5 +193,6 @@ return {
 				},
 			},
 		},
+		terminal = {},
 	},
 }

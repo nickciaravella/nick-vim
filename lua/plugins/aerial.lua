@@ -17,6 +17,15 @@ return {
 		"nvim-tree/nvim-web-devicons",
 	},
 	keys = {
-		{ "<leader>ao", "<CMD>AerialToggle<CR>" },
+		{
+			"<leader>ao",
+			function()
+				require("aerial").snacks_picker({
+					layout = {
+						preset = "select",
+					},
+				})
+			end,
+		},
 	},
 }
