@@ -21,19 +21,6 @@ return {
 			end,
 		},
 		{
-			"-",
-			function()
-				require("snacks").explorer()
-			end,
-		},
-		-- git
-		{
-			"<leader>gs",
-			function()
-				require("snacks").picker.git_status()
-			end,
-		},
-		{
 			"<leader>gc",
 			function()
 				require("snacks").picker.git_branches()
@@ -91,18 +78,11 @@ return {
 			end,
 		},
 		{
-			"gr",
+			"gA",
 			function()
 				require("snacks").picker.lsp_references()
 			end,
 			nowait = true,
-		},
-		-- Terminal
-		{
-			"<leader>t",
-			function()
-				require("snacks").terminal.toggle()
-			end,
 		},
 	},
 	opts = {
@@ -144,7 +124,6 @@ return {
 				{ section = "keys", gap = 1 },
 			},
 		},
-		explorer = {},
 		picker = {
 			sources = {
 				buffers = {
@@ -156,14 +135,6 @@ return {
 					layout = {
 						preset = "select",
 					},
-				},
-				explorer = {
-					laout = {
-						preset = "sidebar",
-						preview = true,
-					},
-					-- focus = "input",
-					auto_close = true,
 				},
 				files = {
 					layout = {
@@ -193,6 +164,5 @@ return {
 				},
 			},
 		},
-		terminal = {},
 	},
 }

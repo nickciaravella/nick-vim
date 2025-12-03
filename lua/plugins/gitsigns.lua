@@ -10,8 +10,6 @@ return {
 			topdelete = { text = "‾" },
 			changedelete = { text = "~" },
 			untracked = { text = "┆" },
-
-			hello = {},
 		},
 		signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
 		numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
