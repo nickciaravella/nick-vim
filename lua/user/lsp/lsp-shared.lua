@@ -1,7 +1,5 @@
 local M = {}
 
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
 -- Servers that will be installed by mason-lspconfig and configured by nvim-lspconfig
 -- These are LspConfig server names, see here:
 -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
@@ -15,14 +13,9 @@ M.servers = {
 	"lua_ls", -- Lua
 	"prismals", -- Prisma Schema files.
 	"tailwindcss", -- Tailwind CSS
-	--"tsserver", -- Typescript -- Using typescript-tools instead.
+	"tsgo", -- Typescript, Go server
 	"yamlls", -- YAML
 }
-
--- Configure capabilities to have autocomplete
-M.capabilities =
-	vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), cmp_nvim_lsp.default_capabilities())
-M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Setup styles
 M.setup = function()
@@ -80,7 +73,7 @@ M.on_attach = function(client, bufnr)
 	M.setup()
 
 	-- Don't use the LSP for formatting Typescript, will be done by conform.nvim
-	if client.name == "typescript-tools" then
+	if client.name == "tsgo" then
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.textDocument_prepareCallHierarchy = true
 	end

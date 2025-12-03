@@ -57,12 +57,8 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 		},
 		config = function()
-			local lspconfig = require("lspconfig")
-			local opts = {}
-
 			for _, server in pairs(shared.servers) do
 				opts = {
-					on_attach = shared.on_attach,
 					capabilities = shared.capabilities,
 				}
 				server = vim.split(server, "@")[1]
@@ -71,7 +67,9 @@ return {
 				if require_ok then
 					opts = vim.tbl_deep_extend("force", conf_opts, opts)
 				end
-				lspconfig[server].setup(opts)
+
+				vim.lsp.config(server, opts)
+				vim.lsp.enable(server)
 			end
 		end,
 	},

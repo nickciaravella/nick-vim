@@ -25,17 +25,14 @@ return {
 			override = {
 				["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 				["vim.lsp.util.stylize_markdown"] = true,
-				["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+				-- if needed add something for blink
+				-- ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
 			},
 			hover = {
 				silent = true,
 			},
 			progress = { enabled = false },
-			signature = {
-				auto_open = {
-					throttle = 50, -- Debounce lsp signature help request by 50ms
-				},
-			},
+			signature = { enabled = false },
 		},
 		-- you can enable a preset for easier configuration
 		presets = {

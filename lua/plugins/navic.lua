@@ -34,7 +34,7 @@ return {
 		},
 		lsp = {
 			auto_attach = true,
-			preference = { "typescript-tools" },
+			preference = { "tsgo" },
 		},
 		highlight = true,
 		separator = " ",
