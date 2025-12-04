@@ -42,6 +42,7 @@ local options = {
 	listchars = {
 		space = "·",
 	},
+	winborder = "rounded", -- options are none, single, double, rounded, solid, shadow
 }
 for k, v in pairs(options) do
 	vim.opt[k] = v
@@ -54,7 +55,7 @@ vim.opt.formatoptions:remove({ "c", "r", "o" }) -- don't insert the current comm
 vim.opt.runtimepath:remove("/usr/share/vim/vimfiles") -- separate vim plugins from neovim in case vim still in use
 vim.filetype.add({ pattern = { [".*/%.env%.?[a-z]+"] = "bash" } }) -- mapping .env files to bash for syntax highlighting
 
--- Netrw settings - Using Oil.nvim instead
+-- Netrw settings - Using neotree instead
 -- vim.g.netrw_keepdir = 0
 -- vim.g.netrw_banner = 1 -- Change to zero to hide the top banner. "I" will toggle it.
 -- vim.g.netrw_winsize = 25 -- Size when split (:Vexplore or :Sexplore)

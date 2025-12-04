@@ -44,7 +44,6 @@
   "vim-dadbod-ui": { "branch": "master", "commit": "48c4f271da13d380592f4907e2d1d5558044e4e5" },
   "vim-fugitive": { "branch": "master", "commit": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4" },
   "vim-prisma": { "branch": "main", "commit": "95c5b25066efb34c75bce78698baa371fe0ee7c2" },
-  "vim-startuptime": { "branch": "master", "commit": "b6f0d93f6b8cf6eee0b4c94450198ba2d6a05ff6" },
   "vscode-diff.nvim": { "branch": "main", "commit": "0c2c8932823cefd9cb02b9903cd5814acb2a3c77" },
   "vscode-js-debug": { "branch": "main", "commit": "7dbdd018d8f42661fbb65e08f68090c7c7eb8b02" }
 }

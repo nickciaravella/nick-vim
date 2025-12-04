@@ -9,7 +9,7 @@ return {
 			auto_trigger = true,
 			hide_during_completion = false,
 			keymap = {
-				accept = "<C-l>", -- blink uses <C-y>
+				accept = "<C-;>", -- blink uses <C-y>
 				accept_word = false,
 				accept_line = false,
 				next = "<C-j>", -- blink uses <C-n>

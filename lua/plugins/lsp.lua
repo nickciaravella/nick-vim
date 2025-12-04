@@ -1,76 +1,69 @@
-local shared = require("user.lsp.lsp-shared")
+local servers = {
+    "cssls",                -- CSS
+    "gopls",                -- Go
+    "eslint",               -- ESLint
+    "html",                 -- HTML
+    "jedi_language_server", -- Python
+    "jsonls",               -- JSON
+    "lua_ls",               -- Lua
+    "prismals",             -- Prisma Schema files.
+    "tailwindcss",          -- Tailwind CSS
+    "tsgo",                 -- Typescript, Go server
+    "yamlls",               -- YAML
+}
 
--- Set LSP related keymaps
-vim.keymap.set("n", "<S-k>", "<CMD>lua vim.lsp.buf.hover()<CR>")
-vim.keymap.set("n", "[d", "<CMD>lua vim.diagnostic.goto_prev()<CR>", { desc = "[D]iagnostics - Previous" })
-vim.keymap.set("n", "]d", "<CMD>lua vim.diagnostic.goto_next()<CR>", { desc = "[D]iagnostics - Next" })
-vim.keymap.set("n", "<C-.>", "<CMD>lua vim.lsp.buf.code_action()<CR>", { desc = "[D]iagnostics - [F]ix" })
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(event)
+        -- Without these keymaps, [d and ]d go to the next diagnostic, but don't show the floating window.
+        vim.keymap.set("n", "[d", "<CMD>lua vim.diagnostic.goto_prev()<CR>", { desc = "[D]iagnostics - Previous" })
+        vim.keymap.set("n", "]d", "<CMD>lua vim.diagnostic.goto_next()<CR>", { desc = "[D]iagnostics - Next" })
+
+        local id = vim.tbl_get(event, "data", "client_id")
+        local client = id and vim.lsp.get_client_by_id(id)
+        if client == nil then
+            return
+        end
+
+        if client.name == "eslint" or client.name == "copilot" then
+            -- If there are any issues, performance or duplicates, re-enable this line
+            -- client.server_capabilities.workspaceSymbolProvider = false
+        end
+
+        if client.name == "eslint" or client.name == "tailwindcss" or client.name == "copilot" then
+            -- These LSPs provide no value to readonly typing files, and on very large ones that we get to
+            -- from "go to definition", it slows down the editor unnecessarily.
+            -- Using defer_fn because there is currently no "should_attach" callback and we can only detach after
+            -- the LSP has completed attaching.
+            if string.find(vim.api.nvim_buf_get_name(0), ".d.ts$") then
+                vim.defer_fn(function()
+                    vim.lsp.buf_detach_client(0, client.id)
+                    vim.notify(
+                        "Detached " .. client.name .. " from .d.ts file.",
+                        vim.log.levels.INFO,
+                        { title = "LSP Detached" }
+                    )
+                end, 500)
+            end
+        end
+    end,
+})
 
 return {
-	{
-		"williamboman/mason.nvim",
-		dependencies = {
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
-		},
-		config = function()
-			local mason = require("mason")
-			mason.setup({
-				ui = {
-					border = "none",
-					icons = {
-						package_installed = "◍",
-						package_pending = "◍",
-						package_uninstalled = "◍",
-					},
-				},
-				log_level = vim.log.levels.INFO,
-				max_concurrent_installers = 4,
-			})
+    {
+        "mason-org/mason-lspconfig.nvim",
+        dependencies = {
+            { "mason-org/mason.nvim", opts = {} },
+            "neovim/nvim-lspconfig",
+        },
+        config = function()
+            require("mason").setup()
+            require("mason-lspconfig").setup({
+                ensure_installed = servers,
+            })
 
-			local mason_tool_installer = require("mason-tool-installer")
-			mason_tool_installer.setup({
-				-- linters
-				ensure_installed = {
-					"golangci-lint",
-					"prettierd",
-					"cspell",
-				},
-			})
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		event = "VeryLazy",
-		opts = function()
-			return {
-				-- lsp servers
-				ensure_installed = shared.servers,
-				automatic_installation = true,
-			}
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		main = "lspconfig",
-		dependencies = {
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-		},
-		config = function()
-			for _, server in pairs(shared.servers) do
-				opts = {
-					capabilities = shared.capabilities,
-				}
-				server = vim.split(server, "@")[1]
-
-				local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
-				if require_ok then
-					opts = vim.tbl_deep_extend("force", conf_opts, opts)
-				end
-
-				vim.lsp.config(server, opts)
-				vim.lsp.enable(server)
-			end
-		end,
-	},
+            -- mason-lspconfig setups up lsp servers with defaults
+            -- and enables them. For extra customization, put additional
+            -- configuration into after/lsp/<server>.lua files.
+        end,
+    },
 }
