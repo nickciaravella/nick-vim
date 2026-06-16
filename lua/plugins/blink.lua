@@ -2,6 +2,21 @@ return {
 	"saghen/blink.cmp",
 	version = "*",
 	opts = {
+		cmdline = {
+			enabled = true,
+			sources = function()
+				local type = vim.fn.getcmdtype()
+				-- Search mode
+				if type == "/" or type == "?" then
+					return { "buffer" }
+				end
+				-- Command mode
+				if type == ":" then
+					return { "cmdline" }
+				end
+				return {}
+			end,
+		},
 		completion = {
 			menu = {
 				draw = {

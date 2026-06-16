@@ -1,7 +1,18 @@
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+
+local go_bin = vim.fn.expand("~/go/bin")
+if vim.fn.isdirectory(go_bin) == 1 and not string.find(vim.env.PATH or "", go_bin, 1, true) then
+	vim.env.PATH = go_bin .. ":" .. (vim.env.PATH or "")
+end
+
 local options = {
+	autoread = true, -- reload buffers changed by external tools and coding agents
 	backup = false, -- creates a backup file
 	clipboard = "unnamedplus", -- allows neovim to access the system clipboard
-	cmdheight = 0, -- more space in the neovim command line for displaying messages
+	cmdheight = 1, -- more space in the neovim command line for displaying messages
 	colorcolumn = "120", -- set a ruler at the 120th column
 	completeopt = { "menuone", "noselect" }, -- mostly just for cmp
 	conceallevel = 0, -- so that `` is visible in markdown files
@@ -29,6 +40,7 @@ local options = {
 	number = true, -- set numbered lines
 	relativenumber = false, -- set relative numbered lines
 	numberwidth = 4, -- set number column width to 2 {default 4}
+	statuscolumn = "%s %l    ", -- creating space between the line numbers and code
 
 	signcolumn = "yes", -- always show the sign column, otherwise it would shift the text each time
 	wrap = true, -- display lines as one long line
@@ -50,12 +62,14 @@ end
 
 -- vim.opt.shortmess = "ilmnrx"                        -- flags to shorten vim messages, see :help 'shortmess'
 vim.opt.shortmess:append("c") -- don't give |ins-completion-menu| messages
+vim.opt.shortmess:remove("S") -- keep native search counts visible in the command area
 vim.opt.iskeyword:append("-") -- hyphenated words recognized by searches
 vim.opt.formatoptions:remove({ "c", "r", "o" }) -- don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
+vim.opt.diffopt:append("linematch:60") -- improve native diff alignment for reviewing external edits
 vim.opt.runtimepath:remove("/usr/share/vim/vimfiles") -- separate vim plugins from neovim in case vim still in use
 vim.filetype.add({ pattern = { [".*/%.env%.?[a-z]+"] = "bash" } }) -- mapping .env files to bash for syntax highlighting
 
--- Netrw settings - Using neotree instead
+-- Netrw settings - Using Snacks explorer instead
 -- vim.g.netrw_keepdir = 0
 -- vim.g.netrw_banner = 1 -- Change to zero to hide the top banner. "I" will toggle it.
 -- vim.g.netrw_winsize = 25 -- Size when split (:Vexplore or :Sexplore)

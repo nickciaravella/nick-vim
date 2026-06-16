@@ -45,11 +45,11 @@ keymap("n", "<A-k>", ":m .-2<CR>==", opts)
 
 -- Toggle relative line numbers
 keymap("n", "<leader>ln", function()
-    if vim.api.nvim_get_option_value("relativenumber", {}) then
-        vim.api.nvim_command("set norelativenumber")
-    else
-        vim.api.nvim_command("set relativenumber")
-    end
+	if vim.api.nvim_get_option_value("relativenumber", {}) then
+		vim.api.nvim_command("set norelativenumber")
+	else
+		vim.api.nvim_command("set relativenumber")
+	end
 end)
 
 -- Insert --
@@ -78,10 +78,10 @@ keymap("x", "K", ":m '<-2<CR>gv=gv", opts)
 keymap("x", "<A-j>", ":m '>+1<CR>gv=gv", opts)
 keymap("x", "<A-k>", ":m '<-2<CR>gv=gv", opts)
 
--- Netrw - Using Oil.nvim instead
+-- Netrw - Using Snacks explorer instead
 -- keymap("n", "<C-e>", "<CMD>Explore<CR>", opts)
 
 -- Close popup if left hanging. Only does the current window.
 vim.api.nvim_create_user_command("PopupClose", function()
-    vim.api.nvim_win_close(0, true)
+	vim.api.nvim_win_close(0, true)
 end, {})

@@ -34,7 +34,7 @@ return {
 		},
 		lsp = {
 			auto_attach = true,
-			preference = { "tsgo" },
+			preference = { "ts_ls" }, --"tsgo" },
 		},
 		highlight = true,
 		separator = " ",

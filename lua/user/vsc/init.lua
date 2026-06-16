@@ -196,27 +196,4 @@ vim.keymap.set("v", "p", "pgvy", opts)
 vim.keymap.set("v", "<S-j>", ":m '>+1<CR>gv=gv", opts)
 vim.keymap.set("v", "<S-k>", ":m '<-2<CR>gv=gv", opts)
 
-vim.keymap.set("n", "<leader>ih", function()
-	local enum = vscode.get_config("typescript.inlayHints.enumMemberValues.enabled")
-	if enum then
-		vscode.update_config("typescript.inlayHints.enumMemberValues.enabled", false)
-	else
-		vscode.update_config("typescript.inlayHints.enumMemberValues.enabled", true)
-	end
-
-	local parameter = vscode.get_config("typescript.inlayHints.parameterNames.enabled")
-	if parameter == "all" then
-		vscode.update_config("typescript.inlayHints.parameterNames.enabled", "none")
-	else
-		vscode.update_config("typescript.inlayHints.parameterNames.enabled", "all")
-	end
-
-	local property = vscode.get_config("typescript.inlayHints.propertyDeclarationTypes.enabled")
-	if property then
-		vscode.update_config("typescript.inlayHints.propertyDeclarationTypes.enabled", false)
-	else
-		vscode.update_config("typescript.inlayHints.propertyDeclarationTypes.enabled", true)
-	end
-end, opts)
-
 vim.notify = vscode.notify
