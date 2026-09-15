@@ -22,6 +22,7 @@ local options = {
 	mouse = "a", -- allow the mouse to be used in neovim
 	pumheight = 10, -- pop up menu height
 	showmode = false, -- we don't need to see things like -- INSERT -- anymore
+	showcmdloc = "statusline", -- cmdheight is 0, so pending operator keys go in the statusline (%S)
 	showtabline = 1, -- change to '2' to always show the tabline
 	smartcase = true, -- smart case
 	smartindent = true, -- make indenting smarter again

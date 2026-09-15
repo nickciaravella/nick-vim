@@ -9,7 +9,7 @@ local servers = {
 	"prismals", -- Prisma Schema files.
 	"tailwindcss", -- Tailwind CSS
 	"ts_ls", -- Typescript/JavaScript
-	-- "tsgo",                 -- Typescript, Go server - not ready for prime time yet.
+	-- "tsc", -- TypeScript 7 native server; warns on every attach until projects are on TS 7
 	"yamlls", -- YAML
 }
 

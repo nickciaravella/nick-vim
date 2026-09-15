@@ -1,5 +1,5 @@
 return {
-	"mfussenegger/nvim-lint",
+	url = "https://codeberg.org/mfussenegger/nvim-lint.git",
 	event = {
 		"BufReadPre",
 		"BufNewFile",
