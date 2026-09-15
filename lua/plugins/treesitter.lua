@@ -1,101 +1,107 @@
+local parsers = {
+	"bash",
+	"css",
+	"csv",
+	"dockerfile",
+	"gitcommit",
+	"gitignore",
+	"html",
+	"javascript",
+	"json",
+	"lua",
+	"make",
+	"markdown",
+	"markdown_inline",
+	"prisma",
+	"python",
+	"regex",
+	"styled",
+	"sql",
+	"tsx",
+	"typescript",
+	"vim",
+	"vimdoc",
+	"xml",
+	"yaml",
+}
+
+local select_textobjects = {
+	["aa"] = "@parameter.outer",
+	["ia"] = "@parameter.inner",
+	["af"] = "@function.outer",
+	["if"] = "@function.inner",
+	["ac"] = "@class.outer",
+	["ic"] = "@class.inner",
+}
+
+local move_textobjects = {
+	goto_next_start = { ["]m"] = "@function.outer", ["]]"] = "@class.outer", ["]a"] = "@parameter.outer" },
+	goto_next_end = { ["]M"] = "@function.outer", ["]["] = "@class.outer", ["]A"] = "@parameter.outer" },
+	goto_previous_start = { ["[m"] = "@function.outer", ["[["] = "@class.outer", ["[a"] = "@parameter.outer" },
+	goto_previous_end = { ["[M"] = "@function.outer", ["[]"] = "@class.outer", ["[A"] = "@parameter.outer" },
+}
+
+local function attach(args)
+	local buf, ft = args.buf, args.match
+	local lang = vim.treesitter.language.get_lang(ft)
+	if not lang or not vim.treesitter.language.add(lang) then
+		return
+	end
+
+	for lhs, capture in pairs(select_textobjects) do
+		vim.keymap.set({ "x", "o" }, lhs, function()
+			require("nvim-treesitter-textobjects.select").select_textobject(capture, "textobjects")
+		end, { buffer = buf, desc = "Select " .. capture })
+	end
+	for method, maps in pairs(move_textobjects) do
+		for lhs, capture in pairs(maps) do
+			vim.keymap.set({ "n", "x", "o" }, lhs, function()
+				require("nvim-treesitter-textobjects.move")[method](capture, "textobjects")
+			end, { buffer = buf, desc = method .. " " .. capture })
+		end
+	end
+
+	-- Neovim's builtin `an`/`in` call this module, but mini.ai owns those keys.
+	vim.keymap.set({ "n", "x" }, "<CR>", function()
+		require("vim.treesitter._select").select_parent(vim.v.count1)
+	end, { buffer = buf, desc = "Select node, then parent node" })
+	vim.keymap.set("x", "N", function()
+		require("vim.treesitter._select").select_child(vim.v.count1)
+	end, { buffer = buf, desc = "Select child node" })
+
+	if ft == "css" then
+		return
+	end
+	if vim.api.nvim_buf_line_count(buf) > 2000 then
+		vim.notify("Disabling Treesitter for large file", vim.log.levels.INFO, { title = "Treesitter" })
+		return
+	end
+	vim.treesitter.start(buf, lang)
+	if ft ~= "python" then
+		vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end
+end
+
 return {
-	"nvim-treesitter/nvim-treesitter",
-	event = "BufRead",
-	build = ":TSUpdate",
-	dependencies = {
-		"JoosepAlviste/nvim-ts-context-commentstring",
-		"nvim-treesitter/nvim-treesitter-textobjects",
+	{
+		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
+		lazy = false,
+		build = ":TSUpdate",
+		dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
+		config = function()
+			require("nvim-treesitter").install(parsers)
+			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup("treesitter-attach", { clear = true }),
+				callback = attach,
+			})
+		end,
 	},
-	config = function()
-		local configs = require("nvim-treesitter.configs")
-		configs.setup({
-			ensure_installed = {
-				"bash",
-				"css",
-				"csv",
-				"dockerfile",
-				"gitcommit",
-				"gitignore",
-				"html",
-				"javascript",
-				"json",
-				"lua",
-				"make",
-				"markdown",
-				"markdown_inline",
-				"prisma",
-				"python",
-				"regex",
-				"styled",
-				"sql",
-				"tsx",
-				"typescript",
-				"vim",
-				"vimdoc",
-				"xml",
-				"yaml",
-			},
-			ignore_install = { "" },
-			sync_install = false,
-			highlight = {
-				enable = true,
-				disable = function(lang, bufnr)
-					if vim.api.nvim_buf_line_count(bufnr) > 2000 then
-						vim.notify("Disabling Treesitter for large file", vim.log.levels.INFO, { title = "Treesitter" })
-						return true
-					end
-					return lang == "css"
-				end,
-			},
-			indent = { enable = true, disable = { "python", "css" } },
-			incremental_selection = {
-				enable = true,
-				keymaps = {
-					init_selection = "<CR>",
-					node_incremental = "<CR>",
-					scope_incremental = "n",
-					node_decremental = "N",
-				},
-			},
-			textobjects = {
-				select = {
-					enable = true,
-					lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-					keymaps = {
-						-- You can use the capture groups defined in textobjects.scm
-						["aa"] = "@parameter.outer",
-						["ia"] = "@parameter.inner",
-						["af"] = "@function.outer",
-						["if"] = "@function.inner",
-						["ac"] = "@class.outer",
-						["ic"] = "@class.inner",
-					},
-				},
-				move = {
-					enable = true,
-					set_jumps = true, -- whether to set jumps in the jumplist
-					goto_next_start = {
-						["]m"] = "@function.outer",
-						["]]"] = "@class.outer",
-						["]a"] = "@parameter.outer",
-					},
-					goto_next_end = {
-						["]M"] = "@function.outer",
-						["]["] = "@class.outer",
-						["]A"] = "@parameter.outer",
-					},
-					goto_previous_start = {
-						["[m"] = "@function.outer",
-						["[["] = "@class.outer",
-						["[a"] = "@parameter.outer",
-					},
-					goto_previous_end = {
-						["[M"] = "@function.outer",
-						["[]"] = "@class.outer",
-						["[A"] = "@parameter.outer",
-					},
-				},
-			},
-		})
-	end,
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		branch = "main",
+		lazy = false,
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		opts = { select = { lookahead = true } },
+	},
 }

@@ -30,6 +30,12 @@ Source: https://ohmyposh.dev/docs/installation/fonts
 Follow the guide here: https://github.com/BurntSushi/ripgrep#installation
 
 
+### tree-sitter CLI (parser builds)
+nvim-treesitter's `main` branch compiles parsers with the `tree-sitter` CLI (0.26.1 or later, installed via a package manager, not npm). On a Mac:
+```shell
+brew install tree-sitter-cli
+```
+
 ### C/C++ Compilers (Windows)
 
 Install GCC compilers for treesitter - https://www.freecodecamp.org/news/how-to-install-c-and-cpp-compiler-on-windows/

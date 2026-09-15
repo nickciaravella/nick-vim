@@ -13,12 +13,19 @@ local servers = {
 	"yamlls", -- YAML
 }
 
+-- Show the floating window after [d / ]d jump to a diagnostic.
+vim.diagnostic.config({
+	jump = {
+		-- config() replaces the whole `jump` table, so the wrap default must be restated
+		wrap = true,
+		on_jump = function(_, bufnr)
+			vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
+		end,
+	},
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
-		-- Without these keymaps, [d and ]d go to the next diagnostic, but don't show the floating window.
-		vim.keymap.set("n", "[d", "<CMD>lua vim.diagnostic.goto_prev()<CR>", { desc = "[D]iagnostics - Previous" })
-		vim.keymap.set("n", "]d", "<CMD>lua vim.diagnostic.goto_next()<CR>", { desc = "[D]iagnostics - Next" })
-
 		local id = vim.tbl_get(event, "data", "client_id")
 		local client = id and vim.lsp.get_client_by_id(id)
 		if client == nil then

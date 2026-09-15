@@ -52,28 +52,21 @@ return {
 			-- Navigation
 			map("n", "]c", function()
 				if vim.wo.diff then
-					return "]c"
+					vim.cmd.normal({ "]c", bang = true })
+				else
+					gs.nav_hunk("next")
 				end
-				vim.schedule(function()
-					gs.next_hunk()
-				end)
-				return "<Ignore>"
-			end, { expr = true })
+			end)
 
 			map("n", "[c", function()
 				if vim.wo.diff then
-					return "[c"
+					vim.cmd.normal({ "[c", bang = true })
+				else
+					gs.nav_hunk("prev")
 				end
-				vim.schedule(function()
-					gs.prev_hunk()
-				end)
-				return "<Ignore>"
-			end, { expr = true })
-
-			map("n", "<leader>gd", function()
-				gs.toggle_linehl()
-				gs.toggle_deleted()
 			end)
+
+			map("n", "<leader>gd", gs.preview_hunk_inline)
 			map("n", "<leader>gb", gs.toggle_current_line_blame)
 			map("n", "<leader>gS", function()
 				gs.toggle_signs()
