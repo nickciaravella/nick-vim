@@ -24,42 +24,17 @@ vim.diagnostic.config({
 	},
 })
 
-vim.api.nvim_create_autocmd("LspAttach", {
-	callback = function(event)
-		local id = vim.tbl_get(event, "data", "client_id")
-		local client = id and vim.lsp.get_client_by_id(id)
-		if client == nil then
-			return
-		end
-
-		if client.name == "eslint" then
-			-- If there are any issues, performance or duplicates, re-enable this line
-			-- client.server_capabilities.workspaceSymbolProvider = false
-		end
-
-		if client.name == "eslint" or client.name == "tailwindcss" then
-			-- These LSPs provide no value to readonly typing files, and on very large ones that we get to
-			-- from "go to definition", it slows down the editor unnecessarily.
-			-- Using defer_fn because there is currently no "should_attach" callback and we can only detach after
-			-- the LSP has completed attaching.
-			local bufnr = event.buf
-			if string.find(vim.api.nvim_buf_get_name(bufnr), "%.d%.ts$") then
-				vim.defer_fn(function()
-					if not vim.api.nvim_buf_is_valid(bufnr) then
-						return
-					end
-
-					vim.lsp.buf_detach_client(bufnr, client.id)
-					vim.notify(
-						"Detached " .. client.name .. " from .d.ts file.",
-						vim.log.levels.INFO,
-						{ title = "LSP Detached" }
-					)
-				end, 500)
+-- Read-only typings get nothing from these servers, and large ones slow the editor down.
+local function skip_declaration_files(server)
+	local root_dir = vim.lsp.config[server].root_dir
+	vim.lsp.config(server, {
+		root_dir = function(bufnr, on_dir)
+			if not vim.api.nvim_buf_get_name(bufnr):find("%.d%.ts$") then
+				root_dir(bufnr, on_dir)
 			end
-		end
-	end,
-})
+		end,
+	})
+end
 
 return {
 	{
@@ -70,6 +45,8 @@ return {
 		},
 		config = function()
 			require("mason").setup()
+			skip_declaration_files("eslint")
+			skip_declaration_files("tailwindcss")
 			require("mason-lspconfig").setup({
 				ensure_installed = servers,
 				automatic_enable = servers,

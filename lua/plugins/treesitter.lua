@@ -88,7 +88,6 @@ return {
 		branch = "main",
 		lazy = false,
 		build = ":TSUpdate",
-		dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
 		config = function()
 			require("nvim-treesitter").install(parsers)
 			vim.api.nvim_create_autocmd("FileType", {

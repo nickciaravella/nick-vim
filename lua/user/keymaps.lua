@@ -18,6 +18,11 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 
+-- Clear search highlight when one is active, otherwise leave <Esc> alone
+keymap("n", "<Esc>", function()
+	return vim.v.hlsearch == 1 and "<CMD>nohlsearch<CR>" or "<Esc>"
+end, { expr = true, silent = true })
+
 -- Open buffer changing
 keymap("n", "<C-p>", "<C-^>", opts)
 keymap("n", "<leader><tab>", ":b<space>", opts)
