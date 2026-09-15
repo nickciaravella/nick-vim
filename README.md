@@ -1,41 +1,173 @@
-# Installation Instructions
+# nick-vim
 
+Personal Neovim config: Lua, [lazy.nvim](https://github.com/folke/lazy.nvim), Neovim 0.12+.
+When run inside VS Code via [vscode-neovim](https://github.com/vscode-neovim/vscode-neovim) only a
+keymap layer loads (see [VS Code](#vs-code)); no plugins.
 
-## Neovim Configuration
-### Mac OS
+## Install
+
+macOS / Linux:
+
 ```shell
 mv "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim-old
 git clone git@github.com:nickciaravella/nick-vim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
 ```
 
-### Windows
+Windows:
+
 ```shell
 ren %LocalAppData%\nvim %LocalAppData%\nvim-old
 git clone git@github.com:nickciaravella/nick-vim.git %LocalAppData%\nvim
 ```
 
+On first launch lazy.nvim clones itself, installs the plugins pinned in `lazy-lock.json`, runs
+`:TSUpdate` to build Treesitter parsers, and Mason installs the LSP servers. Give it a minute, then
+run `:checkhealth`.
+
 ## Dependencies
-### Install nerfonts (Meslo)
-On a Mac you can do:
-```shell
-brew search nerd-font
-brew install --cask <font>
+
+### System tools
+
+| Tool | Used for | macOS |
+| --- | --- | --- |
+| Neovim 0.12+ | `vim._core.ui2`, `vim.lsp.config`, `winborder` | `brew install neovim` |
+| git | lazy.nvim bootstrap, fugitive, gitsigns | preinstalled |
+| A Nerd Font | icons in statusline, pickers, explorer | `brew install --cask font-meslo-lg-nerd-font`, then set it as the terminal font |
+| ripgrep | grep pickers | `brew install ripgrep` |
+| fd | file picker (falls back to `rg`, then `find`) | `brew install fd` |
+| tree-sitter CLI 0.26.1+ | nvim-treesitter `main` compiles parsers with it. Install from a package manager, not npm | `brew install tree-sitter-cli` |
+| C compiler | Treesitter parser builds | `xcode-select --install`. Windows: [GCC](https://www.freecodecamp.org/news/how-to-install-c-and-cpp-compiler-on-windows/) |
+| stylua | Lua format on save | `brew install stylua` |
+| opencode | `<C-.>` OpenCode terminal (optional) | `brew install anomalyco/tap/opencode` |
+
+### Language toolchains
+
+Mason installs servers with each language's own package manager, so these need to be on `PATH`
+before first launch:
+
+- **Node.js + npm**: ts_ls, eslint, cssls, html, jsonls, yamlls, tailwindcss, prismals, prettierd, cspell
+- **Go**: gopls, golangci-lint, and `goimports` (`go install golang.org/x/tools/cmd/goimports@latest`; `~/go/bin` is added to `PATH` by `lua/user/options.lua`)
+- **Python 3**: jedi_language_server
+
+### Installed through Mason
+
+The LSP servers listed in `lua/plugins/lsp.lua` install automatically. Formatters and linters do not,
+so install them once:
+
+```vim
+:MasonInstall prettierd cspell golangci-lint
 ```
-For Mac-like font, use `font-meslo-lg-nerd-font`
 
-Source: https://ohmyposh.dev/docs/installation/fonts
+Mason prepends its bin directory to `PATH` inside Neovim, so conform and nvim-lint pick these up
+without a global install. Homebrew versions work too.
 
-### RipGrep (snacks picker grep and files)
-Follow the guide here: https://github.com/BurntSushi/ripgrep#installation
+| | Filetypes | Tools |
+| --- | --- | --- |
+| Format on save (conform) | lua | stylua |
+| | js / ts / jsx / tsx | prettierd |
+| | go | goimports, gofmt |
+| Lint (nvim-lint) | js / ts / jsx / tsx | cspell |
+| | go | cspell, golangci-lint |
 
+## Layout
 
-### tree-sitter CLI (parser builds)
-nvim-treesitter's `main` branch compiles parsers with the `tree-sitter` CLI (0.26.1 or later, installed via a package manager, not npm). On a Mac:
-```shell
-brew install tree-sitter-cli
+```
+init.lua              bootstrap lazy.nvim; loads lua/user/vsc instead when vim.g.vscode
+lua/user/             options, keymaps, autocommands (no plugins)
+lua/user/vsc/         vscode-neovim keymaps, only loaded inside VS Code
+lua/plugins/          one lazy.nvim spec per plugin
+after/lsp/<server>.lua  per-server overrides merged into vim.lsp.config
+lazy-lock.json        pinned plugin commits
+AGENTS.md             agent instructions; CLAUDE.md symlinks to it
+TASKS.md              backlog
 ```
 
-### C/C++ Compilers (Windows)
+## Usage
 
-Install GCC compilers for treesitter - https://www.freecodecamp.org/news/how-to-install-c-and-cpp-compiler-on-windows/
+Leader is `<Space>`. Only custom or surprising bindings are listed. mini.ai, mini.surround,
+fugitive, and blink.cmp use their upstream defaults.
 
+### Editing and windows
+
+| Key | Mode | Action |
+| --- | --- | --- |
+| `jk` / `kj` | insert | Escape |
+| `<Esc>` | normal | Clear search highlight if one is active, otherwise plain Esc |
+| `<C-h>` `<C-j>` `<C-k>` `<C-l>` | normal, terminal | Move between windows (also leaves terminal mode) |
+| `<S-Up>` `<S-Down>` `<S-Left>` `<S-Right>` | normal | Resize window |
+| `<S-h>` / `<S-l>` | normal | Previous / next buffer |
+| `<C-p>` | normal | Alternate buffer |
+| `<leader><Tab>` | normal | `:b ` prompt |
+| `<leader>won` | normal | Close every other buffer |
+| `<A-j>` / `<A-k>`, `J` / `K` in visual | normal, visual | Move line(s) up / down |
+| `<` / `>` | visual | Indent and stay in visual |
+| `p` | visual | Paste without overwriting the register |
+| `<leader>ln` | normal | Toggle relative line numbers |
+| `<leader>bl` / `<leader>bs` | normal | Toggle indent guides / scope highlight |
+| `<CR>` | normal, visual | Treesitter incremental selection (expand to parent node) |
+| `N` | visual | Shrink selection to child node |
+
+### Finding (snacks.nvim pickers)
+
+| Key | Picker |
+| --- | --- |
+| `-` or `<leader>e` | Explorer at the current file |
+| `<leader>ff` / `<leader>fb` / `<leader>fc` | Files / buffers / command history |
+| `<leader>fh` / `<leader>fd` | Help tags / diagnostics |
+| `<leader>st` / `<leader>sw` | Grep / grep word under cursor or visual selection |
+| `<leader>sb` / `<leader>sB` | Lines in current buffer / grep open buffers |
+| `<leader>sR` | Resume last picker |
+| `<leader>gc` | Git branches |
+| `<leader>ao` | Symbol outline (aerial) |
+
+Pickers rank by frecency and show the filename before its path.
+
+### LSP and diagnostics
+
+- Neovim's builtin maps apply: `grn` rename, `gra` code action, `grr` references, `gri`
+  implementation, `gO` document symbols, `K` hover. See `:help lsp-defaults`.
+- `gd` definitions and `gA` references open in a snacks picker. `gA` rather than `gr` because `gr`
+  is a builtin prefix.
+- `[d` / `]d` jump to a diagnostic and open its float.
+- `<leader>d` Trouble diagnostics for the workspace, `<leader>D` for the current buffer.
+- eslint and tailwindcss do not attach to `.d.ts` files.
+- Per-server settings go in `after/lsp/<server>.lua`, not in `lsp.lua`.
+
+### Git
+
+- fugitive: `:G`, `:Gdiffsplit`, and friends.
+- gitsigns: `]c` / `[c` next / previous hunk (falls through to diff-mode `]c` in a diff window),
+  `<leader>gd` preview hunk inline, `<leader>gb` toggle current-line blame, `<leader>gS` toggle
+  signs and line-number highlight.
+- `:CodeDiff` for a VS Code-style side-by-side diff.
+
+### Treesitter
+
+Text objects: `af` / `if` function, `ac` / `ic` class, `aa` / `ia` parameter. Motions: `]m` / `[m`
+function, `]]` / `[[` class, `]a` / `[a` parameter; capital letter jumps to the end. Highlighting and
+indent are skipped for files over 2000 lines and for CSS.
+
+### OpenCode
+
+`<C-.>` toggles an OpenCode terminal from normal or terminal mode. `<leader>oa` asks about the
+cursor position or visual selection. `<leader>os` opens the prompt picker.
+
+### Behaviors to know about
+
+- Format on save via conform with a 500ms timeout, falling back to LSP formatting. Errors are
+  silent; run `:ConformInfo` if formatting stops working.
+- Trailing whitespace is stripped on save.
+- Comment leaders are not auto-inserted on `o`, `O`, or Enter.
+- The command line is a floating window (tiny-cmdline, `cmdheight=0`). Pending operator keys show
+  in the statusline instead.
+- Terminal buffers open in insert mode.
+- Colorscheme is gruvbox hard with a light background.
+- `:PopupClose` force-closes the current floating window.
+- Node, Python, Ruby, and Perl providers are disabled.
+
+### VS Code
+
+With vscode-neovim, only `lua/user/options.lua` and `lua/user/vsc/init.lua` load. The keymaps mirror
+the terminal ones (`<leader>ff`, `<leader>st`, `<C-h/j/k/l>`, `<S-h>` / `<S-l>`, `]d` / `[d`,
+`]c` / `[c`) by calling VS Code actions, plus `<leader>e` / `<leader>b` / `<leader>j` for sidebar
+and panel, `<leader>t*` for tasks, and `<leader>d*` for the debugger.
