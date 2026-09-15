@@ -18,7 +18,6 @@ git clone git@github.com:nickciaravella/nick-vim.git %LocalAppData%\nvim
 ### Install nerfonts (Meslo)
 On a Mac you can do:
 ```shell
-brew tap homebrew/cask-fonts
 brew search nerd-font
 brew install --cask <font>
 ```
@@ -26,7 +25,7 @@ For Mac-like font, use `font-meslo-lg-nerd-font`
 
 Source: https://ohmyposh.dev/docs/installation/fonts
 
-### RipGrep (faster telescope)
+### RipGrep (snacks picker grep and files)
 Follow the guide here: https://github.com/BurntSushi/ripgrep#installation
 
 
@@ -39,9 +38,4 @@ brew install tree-sitter-cli
 ### C/C++ Compilers (Windows)
 
 Install GCC compilers for treesitter - https://www.freecodecamp.org/news/how-to-install-c-and-cpp-compiler-on-windows/
-
-
-# Resources
-
-NeoVim-from-Scratch - https://github.com/LunarVim/NeoVim-from-Scratch
 

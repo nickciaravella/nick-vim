@@ -23,14 +23,14 @@ return {
 		{
 			"<leader>e",
 			function()
-				require("snacks").explorer({ follow_file = true })
+				require("snacks").explorer()
 			end,
 			desc = "Open Explorer to Current File",
 		},
 		{
 			"-",
 			function()
-				require("snacks").explorer({ follow_file = true })
+				require("snacks").explorer()
 			end,
 			desc = "Open Explorer to Current File",
 		},
@@ -136,34 +136,21 @@ return {
 		},
 	},
 	opts = {
-		explorer = {
-			replace_netrw = true,
-		},
+		explorer = {},
 		input = {},
 		indent = {
 			indent = {
 				char = "▏",
 			},
 			scope = {
-				enabled = true,
 				hl = { "Function", "Label" },
 			},
 			animate = {
 				enabled = false,
 			},
-			chunk = {
-				enabled = false,
-			},
 		},
 		picker = {
-			ui_select = true,
 			sources = {
-				explorer = {
-					layout = {
-						preset = "sidebar",
-						preview = false,
-					},
-				},
 				buffers = {
 					layout = {
 						preset = "select",
@@ -180,11 +167,6 @@ return {
 					},
 				},
 				git_branches = {
-					layout = {
-						preset = "select",
-					},
-				},
-				recent = {
 					layout = {
 						preset = "select",
 					},
@@ -212,7 +194,7 @@ return {
 ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚══════╝]],
 			},
 			sections = {
-				{ section = "header", padding = 2 },
+				{ section = "header" },
 				{
 					icon = " ",
 					title = "Projects",

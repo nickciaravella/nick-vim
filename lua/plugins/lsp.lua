@@ -44,7 +44,6 @@ return {
 			"neovim/nvim-lspconfig",
 		},
 		config = function()
-			require("mason").setup()
 			skip_declaration_files("eslint")
 			skip_declaration_files("tailwindcss")
 			require("mason-lspconfig").setup({

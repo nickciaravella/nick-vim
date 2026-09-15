@@ -27,3 +27,12 @@ vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
 		end
 	end,
 })
+
+-- ftplugins add these back after the global option is set, so strip them per buffer.
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "Don't auto-insert comment leaders on wrap, <Enter>, o, or O",
+	group = vim.api.nvim_create_augroup("formatoptions", { clear = true }),
+	callback = function()
+		vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+	end,
+})

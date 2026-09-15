@@ -1,12 +1,7 @@
 return {
 	"rachartier/tiny-cmdline.nvim",
 	init = function()
-		vim.opt.cmdheight = 0
-
-		local ok, ui2 = pcall(require, "vim._core.ui2")
-		if ok then
-			ui2.enable({})
-		end
+		require("vim._core.ui2").enable({})
 	end,
 	config = function()
 		local function set_cmdline_highlights()
@@ -20,13 +15,7 @@ return {
 		end
 
 		require("tiny-cmdline").setup({
-			width = {
-				value = "50%",
-				min = 40,
-				max = 80,
-			},
-			border = "rounded",
-			native_types = { "/", "?" }, -- Keep search native to avoid the reserved cmdheight row
+			width = { value = "50%" },
 			on_reposition = require("tiny-cmdline").adapters.blink,
 		})
 

@@ -8,26 +8,7 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	event = "VeryLazy",
 	opts = {
-		options = {
-			icons_enabled = true,
-			theme = "gruvbox",
-			-- theme = "catppuccin",
-			-- theme = "tokyonight",
-			component_separators = { left = "", right = "" },
-			section_separators = { left = "", right = "" },
-			disabled_filetypes = {
-				statusline = { "NvimTree" },
-				winbar = {},
-			},
-			ignore_focus = {},
-			always_divide_middle = true,
-			globalstatus = false,
-			refresh = {
-				statusline = 1000,
-				tabline = 1000,
-				winbar = 1000,
-			},
-		},
+		options = { theme = "gruvbox" },
 		sections = {
 			lualine_a = { "mode" },
 			lualine_b = { "branch" },
@@ -48,13 +29,7 @@ return {
 		winbar = {
 			lualine_a = {},
 			lualine_b = { { "filename", path = 0 } },
-			lualine_c = {
-				{
-					"navic",
-					color_correction = nil,
-					navic_opts = nil,
-				},
-			},
+			lualine_c = { "navic" },
 			lualine_x = {},
 			lualine_y = {},
 			lualine_z = {},
@@ -62,13 +37,7 @@ return {
 		inactive_winbar = {
 			lualine_a = {},
 			lualine_b = { { "filename", path = 0 } },
-			lualine_c = {
-				{
-					"navic",
-					color_correction = nil,
-					navic_opts = nil,
-				},
-			},
+			lualine_c = { "navic" },
 			lualine_x = {},
 			lualine_y = {},
 			lualine_z = {},
