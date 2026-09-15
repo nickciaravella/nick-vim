@@ -84,8 +84,8 @@ TASKS.md              backlog
 
 ## Usage
 
-Leader is `<Space>`. Only custom or surprising bindings are listed. mini.ai, mini.surround,
-fugitive, and blink.cmp use their upstream defaults.
+Leader is `<Space>`. Only custom or surprising bindings are listed. mini.ai, mini.surround, and
+blink.cmp use their upstream defaults.
 
 ### Editing and windows
 
@@ -138,22 +138,23 @@ the search is empty; Esc restores what was there.
 
 ### Git
 
-- fugitive: `:G`, `:Gdiffsplit`, and friends.
-- gitsigns: `]c` / `[c` next / previous hunk (falls through to diff-mode `]c` in a diff window),
-  `<leader>gd` preview hunk inline, `<leader>gb` toggle current-line blame, `<leader>gS` toggle
-  signs and line-number highlight.
-- `:CodeDiff` for a VS Code-style side-by-side diff.
+gitsigns only. `]c` / `[c` jump to the next / previous hunk and fall through to diff-mode `]c` in
+a diff window. Diffing lives under the `<leader>gd` prefix.
+
+| Key | Action |
+| --- | --- |
+| `<leader>gdf` | Diff this file against the index in a split |
+| `<leader>gda` | Repository diff panel, HEAD against the working tree |
+| `<leader>gdt` | Toggle the whole-file inline diff |
+| `<leader>gdh` | Preview the hunk under the cursor inline |
+| `<leader>gb` | Toggle current-line blame |
+| `<leader>gS` | Toggle signs and line-number highlight |
 
 ### Treesitter
 
 Text objects: `af` / `if` function, `ac` / `ic` class, `aa` / `ia` parameter. Motions: `]m` / `[m`
 function, `]]` / `[[` class, `]a` / `[a` parameter; capital letter jumps to the end. Highlighting and
 indent are skipped for files over 2000 lines and for CSS.
-
-### OpenCode
-
-`<C-.>` toggles an OpenCode terminal from normal or terminal mode. `<leader>oa` asks about the
-cursor position or visual selection. `<leader>os` opens the prompt picker.
 
 ### Behaviors to know about
 

@@ -38,12 +38,20 @@ return {
 				end
 			end)
 
-			map("n", "<leader>gd", gs.preview_hunk_inline)
-			map("n", "<leader>gb", gs.toggle_current_line_blame)
+			-- Diffing
+			map("n", "<leader>gdf", gs.diffthis, { desc = "Diff file against the index" })
+			map("n", "<leader>gda", gs.diff, { desc = "Diff all: repository panel" })
+			map("n", "<leader>gdt", function()
+				gs.diffthis(nil, { unified = true })
+			end, { desc = "Toggle inline diff for this file" })
+			map("n", "<leader>gdh", gs.preview_hunk_inline, { desc = "Preview hunk inline" })
+
+			-- Toggles
+			map("n", "<leader>gb", gs.toggle_current_line_blame, { desc = "Toggle line blame" })
 			map("n", "<leader>gS", function()
 				gs.toggle_signs()
 				gs.toggle_numhl()
-			end)
+			end, { desc = "Toggle signs and number highlight" })
 		end,
 	},
 }
