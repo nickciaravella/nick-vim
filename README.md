@@ -120,7 +120,10 @@ fugitive, and blink.cmp use their upstream defaults.
 | `<leader>gc` | Git branches |
 | `<leader>ao` | Symbol outline (aerial) |
 
-Pickers rank by frecency and show the filename before its path.
+Pickers rank by frecency and show the filename before its path. Files, buffers, git branches, and the
+grep pickers open as a VS Code-style dropdown at the top of the screen; command history stays centered.
+The grep pickers preview the selected match in the editor window itself and leave it untouched while
+the search is empty; Esc restores what was there.
 
 ### LSP and diagnostics
 

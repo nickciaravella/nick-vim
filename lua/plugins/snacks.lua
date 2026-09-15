@@ -15,6 +15,20 @@ local function refresh_indent()
 	end
 end
 
+-- The select preset keeps the preview hidden from the layout. Open the main-window preview only
+-- while there is a current item, so the layout never paints an empty float over the editor.
+local function show_main_preview_for_current_item(picker)
+	if not picker.preview.main then
+		return
+	end
+	local win = picker.preview.win
+	if picker:current() and not win:valid() then
+		win:show()
+	elseif not picker:current() and win:valid() then
+		win:hide()
+	end
+end
+
 return {
 	"folke/snacks.nvim",
 	lazy = false,
@@ -153,7 +167,7 @@ return {
 			sources = {
 				buffers = {
 					layout = {
-						preset = "select",
+						preset = "select_top",
 					},
 				},
 				command_history = {
@@ -163,13 +177,39 @@ return {
 				},
 				files = {
 					layout = {
-						preset = "select",
+						preset = "select_top",
 					},
 				},
 				git_branches = {
 					layout = {
-						preset = "select",
+						preset = "select_top",
 					},
+				},
+				grep = {
+					layout = {
+						preset = "select_top_main",
+					},
+					on_change = show_main_preview_for_current_item,
+				},
+				grep_word = {
+					layout = {
+						preset = "select_top_main",
+					},
+					on_change = show_main_preview_for_current_item,
+				},
+			},
+			layouts = {
+				select_top = {
+					preset = "select",
+					layout = {
+						row = 1,
+						width = 0.4,
+						title = "{title} {live} {flags}",
+					},
+				},
+				select_top_main = {
+					preset = "select_top",
+					preview = "main",
 				},
 			},
 			layout = {
