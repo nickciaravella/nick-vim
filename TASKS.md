@@ -3,8 +3,6 @@
 Backlog of confirmed work. Remove an item when it lands; never check it off. Rules for editing this
 file are in `AGENTS.md`.
 
-- Drop Windows support: remove the Windows install steps and the Windows GCC note from `README.md`.
-  No Windows-only Lua config exists.
 - Decide on a file tree or other way to view files
 - Decide on a startup page or other dashboard
 - Remove "Buffer" sources for autocomplete for markdown buffers

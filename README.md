@@ -1,21 +1,13 @@
 # nick-vim
 
-Personal Neovim config: Lua, [lazy.nvim](https://github.com/folke/lazy.nvim), Neovim 0.12+.
+Personal Neovim config: Lua, [lazy.nvim](https://github.com/folke/lazy.nvim), Neovim 0.12+, macOS and
+Linux.
 
 ## Install
-
-macOS / Linux:
 
 ```shell
 mv "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim-old
 git clone git@github.com:nickciaravella/nick-vim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
-```
-
-Windows:
-
-```shell
-ren %LocalAppData%\nvim %LocalAppData%\nvim-old
-git clone git@github.com:nickciaravella/nick-vim.git %LocalAppData%\nvim
 ```
 
 On first launch lazy.nvim clones itself and installs the plugins pinned in `lazy-lock.json`,
@@ -34,7 +26,7 @@ LSP servers. Give it a minute, then run `:checkhealth`.
 | ripgrep | grep pickers | `brew install ripgrep` |
 | fd | file picker (falls back to `rg`, then `find`) | `brew install fd` |
 | tree-sitter CLI 0.26.1+ | nvim-treesitter `main` compiles parsers with it. Install from a package manager, not npm | `brew install tree-sitter-cli` |
-| C compiler | Treesitter parser builds | `xcode-select --install`. Windows: [GCC](https://www.freecodecamp.org/news/how-to-install-c-and-cpp-compiler-on-windows/) |
+| C compiler | Treesitter parser builds | `xcode-select --install` |
 | stylua | Lua format on save | `brew install stylua` |
 
 ### Language toolchains
