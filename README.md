@@ -1,8 +1,6 @@
 # nick-vim
 
 Personal Neovim config: Lua, [lazy.nvim](https://github.com/folke/lazy.nvim), Neovim 0.12+.
-When run inside VS Code via [vscode-neovim](https://github.com/vscode-neovim/vscode-neovim) only a
-keymap layer loads (see [VS Code](#vs-code)); no plugins.
 
 ## Install
 
@@ -71,9 +69,8 @@ without a global install. Homebrew versions work too.
 ## Layout
 
 ```
-init.lua              bootstrap lazy.nvim; loads lua/user/vsc instead when vim.g.vscode
+init.lua              bootstrap lazy.nvim
 lua/user/             options, keymaps, autocommands (no plugins)
-lua/user/vsc/         vscode-neovim keymaps, only loaded inside VS Code
 lua/plugins/          one lazy.nvim spec per plugin
 after/lsp/<server>.lua  per-server overrides merged into vim.lsp.config
 lazy-lock.json        pinned plugin commits
@@ -167,10 +164,3 @@ indent are skipped for files over 2000 lines and for CSS.
 - Colorscheme is gruvbox hard with a light background.
 - `:PopupClose` force-closes the current floating window.
 - Node, Python, Ruby, and Perl providers are disabled.
-
-### VS Code
-
-With vscode-neovim, only `lua/user/options.lua` and `lua/user/vsc/init.lua` load. The keymaps mirror
-the terminal ones (`<leader>ff`, `<leader>st`, `<C-h/j/k/l>`, `<S-h>` / `<S-l>`, `]d` / `[d`,
-`]c` / `[c`) by calling VS Code actions, plus `<leader>e` / `<leader>b` / `<leader>j` for sidebar
-and panel, `<leader>t*` for tasks, and `<leader>d*` for the debugger.

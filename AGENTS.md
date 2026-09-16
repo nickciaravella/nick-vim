@@ -84,7 +84,6 @@ can break on any Neovim upgrade. When a public replacement lands, switch to it.
 - Formatting is stylua with default settings (tabs).
 - Comments only where the reason is not obvious from the code. This includes
   `lua/user/options.lua`: when touching it, trim per-option comments that restate the option name.
-- Do not extend `lua/user/vsc/`. It is slated for removal; see `TASKS.md`.
 
 ## Verifying changes
 
