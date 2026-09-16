@@ -117,6 +117,9 @@ Headless caveats:
 
 - Anything set up on `UIEnter` never runs (snacks input and select, the dashboard), so health errors
   about them are artifacts.
+- To probe the dashboard, open it with
+  `Snacks.dashboard.open({ win = vim.api.nvim_get_current_win(), buf = vim.api.nvim_get_current_buf() })`.
+  Without those arguments it opens as a float, and any action closes the float and wipes the buffer.
 - `nvim_win_set_cursor` does not fire `CursorMoved`; use `:doautocmd` when a plugin depends on it.
 - Neovim accepts at most ten `-c` arguments; keep probes in files.
 - stderr and stdout interleave; redirect stderr to a file before filtering output.
