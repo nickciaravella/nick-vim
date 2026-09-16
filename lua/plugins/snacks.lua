@@ -29,15 +29,21 @@ local function show_main_preview_for_current_item(picker)
 	end
 end
 
--- Header rows are centered one at a time and the save autocmd strips trailing spaces, so pad
--- the short rows of the E to the widest row here instead of in the literal.
-local function padded_header(lines)
+-- Header rows are centered one at a time and the save autocmd strips trailing spaces, so build
+-- the padding here: every row gets the same width, and the middle row gets the stripe.
+local function striped_header(lines, stripe)
 	local width = 0
 	for _, line in ipairs(lines) do
 		width = math.max(width, vim.api.nvim_strwidth(line))
 	end
+	local margin = string.rep(" ", vim.api.nvim_strwidth(stripe) + 1)
 	for i, line in ipairs(lines) do
-		lines[i] = line .. string.rep(" ", width - vim.api.nvim_strwidth(line))
+		local pad = string.rep(" ", width - vim.api.nvim_strwidth(line))
+		if i == math.ceil(#lines / 2) then
+			lines[i] = stripe .. " " .. line .. pad .. " " .. stripe
+		else
+			lines[i] = margin .. line .. pad .. margin
+		end
 	end
 	return table.concat(lines, "\n")
 end
@@ -240,21 +246,23 @@ return {
 		dashboard = {
 			width = 44,
 			preset = {
-				header = padded_header({
+				header = striped_header({
 					"███████╗████████╗██████╗ ██╗██████╗ ███████╗",
 					"██╔════╝╚══██╔══╝██╔══██╗██║██╔══██╗██╔════╝",
 					"███████╗   ██║   ██████╔╝██║██████╔╝█████╗",
 					"╚════██║   ██║   ██╔══██╗██║██╔═══╝ ██╔══╝",
 					"███████║   ██║   ██║  ██║██║██║     ███████╗",
 					"╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝     ╚══════╝",
-				}),
+				}, string.rep("═", 10)),
 				keys = {
-					{ icon = " ", desc = "Find file", label = "<leader>ff", action = "<leader>ff" },
-					{ icon = " ", desc = "Search text", label = "<leader>st", action = "<leader>st" },
+					{ icon = " ", key = "f", desc = "Find file", label = "<leader>ff", action = "<leader>ff" },
+					{ icon = " ", key = "t", desc = "Search text", label = "<leader>st", action = "<leader>st" },
 				},
 			},
 			formats = {
-				label = { "%s", hl = "key" },
+				label = function(item)
+					return { item.label .. "  " .. item.key, hl = "key" }
+				end,
 			},
 			sections = {
 				{ section = "header", padding = 1 },
