@@ -29,6 +29,19 @@ local function show_main_preview_for_current_item(picker)
 	end
 end
 
+-- Header rows are centered one at a time and the save autocmd strips trailing spaces, so pad
+-- the short rows of the E to the widest row here instead of in the literal.
+local function padded_header(lines)
+	local width = 0
+	for _, line in ipairs(lines) do
+		width = math.max(width, vim.api.nvim_strwidth(line))
+	end
+	for i, line in ipairs(lines) do
+		lines[i] = line .. string.rep(" ", width - vim.api.nvim_strwidth(line))
+	end
+	return table.concat(lines, "\n")
+end
+
 return {
 	"folke/snacks.nvim",
 	lazy = false,
@@ -225,41 +238,30 @@ return {
 			},
 		},
 		dashboard = {
+			width = 44,
 			preset = {
-				header = [[██████╗ █████╗ ██████╗ ██╗████████╗ █████╗ ██╗      ██████╗ ███████╗
-██╔════╝██╔══██╗██╔══██╗██║╚══██╔══╝██╔══██╗██║     ██╔═══██╗██╔════╝
-██║     ███████║██████╔╝██║   ██║   ███████║██║     ██║   ██║███████╗
-██║     ██╔══██║██╔═══╝ ██║   ██║   ██╔══██║██║     ██║   ██║╚════██║
-╚██████╗██║  ██║██║     ██║   ██║   ██║  ██║███████╗╚██████╔╝███████║
-╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚══════╝]],
+				header = padded_header({
+					"███████╗████████╗██████╗ ██╗██████╗ ███████╗",
+					"██╔════╝╚══██╔══╝██╔══██╗██║██╔══██╗██╔════╝",
+					"███████╗   ██║   ██████╔╝██║██████╔╝█████╗",
+					"╚════██║   ██║   ██╔══██╗██║██╔═══╝ ██╔══╝",
+					"███████║   ██║   ██║  ██║██║██║     ███████╗",
+					"╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝     ╚══════╝",
+				}),
+				keys = {
+					{ icon = " ", desc = "Find file", label = "<leader>ff", action = "<leader>ff" },
+					{ icon = " ", desc = "Search text", label = "<leader>st", action = "<leader>st" },
+				},
+			},
+			formats = {
+				label = { "%s", hl = "key" },
 			},
 			sections = {
-				{ section = "header" },
-				{
-					icon = " ",
-					title = "Projects",
-					section = "projects",
-					limit = 6,
-					indent = 2,
-					padding = 1,
-					dirs = {
-						"~/src/theboss/server",
-						"~/src/theboss/client",
-						"~/src/theboss/packages",
-						"~/my/homepage-api",
-						"~/my/homepage-web",
-						"~/.config/nvim",
-					},
-				},
-				{
-					icon = " ",
-					title = "Recent Files",
-					section = "recent_files",
-					limit = 10,
-					indent = 2,
-					padding = 3,
-				},
-				{ section = "startup" },
+				{ section = "header", padding = 1 },
+				function()
+					return { footer = vim.fn.fnamemodify(vim.fn.getcwd(), ":~"), padding = 2 }
+				end,
+				{ section = "keys", gap = 1 },
 			},
 		},
 	},

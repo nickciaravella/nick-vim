@@ -75,6 +75,12 @@ TASKS.md              backlog
 Leader is `<Space>`. Only custom or surprising bindings are listed. mini.ai, mini.surround, and
 blink.cmp use their upstream defaults.
 
+### Start page
+
+Starting Neovim without a file opens a snacks.nvim dashboard: the header, the current directory,
+and the `<leader>ff` / `<leader>st` shortcuts. The directory Neovim starts in is the project; there
+is no project switcher.
+
 ### Editing and windows
 
 | Key | Mode | Action |
