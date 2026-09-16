@@ -88,11 +88,36 @@ can break on any Neovim upgrade. When a public replacement lands, switch to it.
 
 ## Verifying changes
 
-There are no tests. After any change:
+There are no tests. The smoke check after any change:
 
 ```shell
 nvim --headless "+lua print('ok')" +qa
 ```
 
-must print `ok` with nothing else on stderr. For plugin changes also open Neovim and check
-`:Lazy` and `:checkhealth`.
+must print `ok` with nothing else on stderr, and `stylua --check` must pass on every touched file.
+
+For anything beyond a trivial edit, verify behavior headless instead of by reading code. Put the
+probe in a Lua file and run `nvim --headless --cmd "luafile trace.lua" -c "luafile probe.lua" -c "qa!"`.
+
+- `trace.lua` runs before `init.lua` and wraps `vim.deprecate` and `vim.notify` (WARN and above) to
+  append to a log file, so deprecations and warnings from startup and plugin load are captured.
+- Load every spec so lazy-loaded `config` functions run:
+  `require("lazy").load({ plugins = vim.tbl_keys(require("lazy.core.config").plugins) })`.
+- Drive keymaps with `vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "x", false)`;
+  `<leader>` is a literal space. Read results through the API: cursor position, `vim.fn.mode()`,
+  extmarks, window and tabpage counts, `vim.fn.maparg(lhs, mode, false, true)`.
+- Wait for async work with `vim.wait(ms, predicate)`: LSP attach via `vim.lsp.get_clients({ bufnr = 0 })`,
+  gitsigns via a non-empty `require("gitsigns").get_hunks(0)` before any diff action, lualine via
+  `require("lualine").refresh()` followed by `vim.api.nvim_eval_statusline`.
+- LSP checks need a fixture project in a temp directory (`package.json`, `tsconfig.json`, eslint and
+  tailwind configs, a `.ts` and a `.d.ts`). Git checks need a throwaway repo with a committed file
+  that has since been modified.
+- Capture `:checkhealth` with `:checkhealth` followed by `:w! <file>`.
+
+Headless caveats:
+
+- Anything set up on `UIEnter` never runs (snacks input and select, the dashboard), so health errors
+  about them are artifacts.
+- `nvim_win_set_cursor` does not fire `CursorMoved`; use `:doautocmd` when a plugin depends on it.
+- Neovim accepts at most ten `-c` arguments; keep probes in files.
+- stderr and stdout interleave; redirect stderr to a file before filtering output.

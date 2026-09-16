@@ -7,3 +7,7 @@ file are in `AGENTS.md`.
   the VS Code section of `README.md`.
 - Drop Windows support: remove the Windows install steps and the Windows GCC note from `README.md`.
   No Windows-only Lua config exists.
+- Decide on a file tree or other way to view files
+- Decide on a startup page or other dashboard
+- Remove "Buffer" sources for autocomplete for markdown buffers
+- Do an audit against LazyVim and other distros to see if there are features worth taking in
