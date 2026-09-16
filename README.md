@@ -78,8 +78,8 @@ blink.cmp use their upstream defaults.
 ### Start page
 
 Starting Neovim without a file opens a snacks.nvim dashboard: the header, the current directory,
-and the `<leader>ff` / `<leader>st` shortcuts, which the page also binds to `f` and `t`. The
-directory Neovim starts in is the project; there is no project switcher.
+and two rows: `f` finds files and `t` greps, the same pickers as `<leader>ff` and `<leader>st`.
+The directory Neovim starts in is the project; there is no project switcher.
 
 ### Editing and windows
 

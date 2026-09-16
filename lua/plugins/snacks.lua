@@ -255,14 +255,9 @@ return {
 					"╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝     ╚══════╝",
 				}, string.rep("═", 10)),
 				keys = {
-					{ icon = " ", key = "f", desc = "Find file", label = "<leader>ff", action = "<leader>ff" },
-					{ icon = " ", key = "t", desc = "Search text", label = "<leader>st", action = "<leader>st" },
+					{ icon = " ", key = "f", desc = "Find file", action = "<leader>ff" },
+					{ icon = " ", key = "t", desc = "Search text", action = "<leader>st" },
 				},
-			},
-			formats = {
-				label = function(item)
-					return { item.label .. "  " .. item.key, hl = "key" }
-				end,
 			},
 			sections = {
 				{ section = "header", padding = 1 },
