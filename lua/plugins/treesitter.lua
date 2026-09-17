@@ -72,7 +72,9 @@ local function attach(args)
 	if ft == "css" then
 		return
 	end
-	if vim.api.nvim_buf_line_count(buf) > 2000 then
+	local lines = vim.api.nvim_buf_line_count(buf)
+	local declaration_file = vim.api.nvim_buf_get_name(buf):find("%.d%.ts$") ~= nil
+	if lines > 20000 or (declaration_file and lines > 2000) then
 		vim.notify("Disabling Treesitter for large file", vim.log.levels.INFO, { title = "Treesitter" })
 		return
 	end

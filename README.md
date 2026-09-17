@@ -148,7 +148,7 @@ a diff window. Diffing lives under the `<leader>gd` prefix.
 
 Text objects: `af` / `if` function, `ac` / `ic` class, `aa` / `ia` parameter. Motions: `]m` / `[m`
 function, `]]` / `[[` class, `]a` / `[a` parameter; capital letter jumps to the end. Highlighting and
-indent are skipped for files over 2000 lines and for CSS.
+indent are skipped for CSS, for `.d.ts` files over 2000 lines, and for any file over 20000 lines.
 
 ### Behaviors to know about
 
