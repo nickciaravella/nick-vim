@@ -54,13 +54,6 @@ return {
 	priority = 1000,
 	keys = {
 		{
-			"<leader>e",
-			function()
-				require("snacks").explorer()
-			end,
-			desc = "Open Explorer to Current File",
-		},
-		{
 			"-",
 			function()
 				require("snacks").explorer()
@@ -188,6 +181,10 @@ return {
 					layout = {
 						preset = "select_top",
 					},
+				},
+				explorer = {
+					jump = { close = true },
+					layout = { preset = "default", preview = true, fullscreen = true },
 				},
 				command_history = {
 					layout = {

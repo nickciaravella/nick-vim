@@ -105,7 +105,7 @@ and `q` quits. The directory Neovim starts in is the project; there is no projec
 
 | Key | Picker |
 | --- | --- |
-| `-` or `<leader>e` | Explorer at the current file |
+| `-` | Explorer at the current file |
 | `<leader>ff` / `<leader>fb` / `<leader>fc` | Files / buffers / command history |
 | `<leader>fh` / `<leader>fd` | Help tags / diagnostics |
 | `<leader>st` / `<leader>sw` | Grep / grep word under cursor or visual selection |
@@ -118,6 +118,12 @@ Pickers rank by frecency and show the filename before its path. Files, buffers, 
 grep pickers open as a VS Code-style dropdown at the top of the screen; command history stays centered.
 The grep pickers preview the selected match in the editor window itself and leave it untouched while
 the search is empty; Esc restores what was there.
+
+The explorer opens full screen, tree on the left and preview on the right, and closes when you open
+a file. `l` / `h` open and close a directory, `<BS>` goes up, `.` re-roots the tree at the directory
+under the cursor, `/` filters as you type. `a` adds a file (end with `/` for a directory), `r` renames,
+`m` moves, `c` copies, `d` trashes, `<Tab>` selects several files first. `<leader>/` greps the directory
+under the cursor; `H` / `I` show hidden and ignored files.
 
 ### LSP and diagnostics
 
