@@ -15,5 +15,14 @@ return {
 			},
 		},
 		signature = { enabled = true },
+		sources = {
+			providers = {
+				buffer = {
+					enabled = function()
+						return not vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype)
+					end,
+				},
+			},
+		},
 	},
 }

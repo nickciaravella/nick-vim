@@ -155,6 +155,7 @@ indent are skipped for files over 2000 lines and for CSS.
 - Format on save via conform with a 500ms timeout, falling back to LSP formatting. Errors are
   silent; run `:ConformInfo` if formatting stops working.
 - Trailing whitespace is stripped on save.
+- Completion in markdown and plain text buffers does not offer words from the buffer.
 - Comment leaders are not auto-inserted on `o`, `O`, or Enter.
 - The command line is a floating window (tiny-cmdline, `cmdheight=0`). Pending operator keys show
   in the statusline instead.
