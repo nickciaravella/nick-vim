@@ -257,6 +257,7 @@ return {
 				keys = {
 					{ icon = " ", key = "f", desc = "Find file", action = "<leader>ff" },
 					{ icon = " ", key = "t", desc = "Search text", action = "<leader>st" },
+					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 				},
 			},
 			sections = {
