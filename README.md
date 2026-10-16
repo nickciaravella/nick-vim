@@ -10,9 +10,22 @@ mv "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim "${XDG_CONFIG_HOME:-$HOME/.config}"/
 git clone git@github.com:nickciaravella/nick-vim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
 ```
 
-On first launch lazy.nvim clones itself and installs the plugins pinned in `lazy-lock.json`,
-nvim-treesitter compiles the parsers listed in `lua/plugins/treesitter.lua`, and Mason installs the
-LSP servers. Give it a minute, then run `:checkhealth`.
+```shell
+./bootstrap.sh
+```
+
+`bootstrap.sh` installs the Homebrew-managed system tools below, then runs Neovim headlessly to
+sync plugins, compile treesitter parsers, and install Mason's LSP servers, so the first
+interactive launch has nothing left to download. It's macOS-only (Homebrew); on Linux, install the
+system tools below with your package manager and skip straight to the headless sync at the bottom
+of the script. It doesn't install the language toolchains below either — those need to be on
+`PATH` first, since lazy.nvim, nvim-treesitter, and Mason only try to install things once and
+don't retry if a dependency wasn't there yet. Run `:checkhealth` after.
+
+If something is still broken after installing the missing tool:
+
+- Parsers: `:TSUpdate` recompiles everything.
+- LSP servers, formatters, and linters: `:MasonInstall <tool>` retries one.
 
 ## Dependencies
 
@@ -35,17 +48,12 @@ Mason installs servers with each language's own package manager, so these need t
 before first launch:
 
 - **Node.js + npm**: ts_ls, eslint, cssls, html, jsonls, yamlls, tailwindcss, prismals, prettierd, cspell
-- **Go**: gopls, golangci-lint, and `goimports` (`go install golang.org/x/tools/cmd/goimports@latest`; `~/go/bin` is added to `PATH` by `lua/user/options.lua`)
 - **Python 3**: jedi_language_server
 
 ### Installed through Mason
 
-The LSP servers listed in `lua/plugins/lsp.lua` install automatically. Formatters and linters do not,
-so install them once:
-
-```vim
-:MasonInstall prettierd cspell golangci-lint
-```
+The LSP servers listed in `lua/plugins/lsp.lua` and the formatters/linters listed in
+`lua/plugins/mason-tool-installer.lua` all install automatically.
 
 Mason prepends its bin directory to `PATH` inside Neovim, so conform and nvim-lint pick these up
 without a global install. Homebrew versions work too.
@@ -54,14 +62,13 @@ without a global install. Homebrew versions work too.
 | --- | --- | --- |
 | Format on save (conform) | lua | stylua |
 | | js / ts / jsx / tsx | prettierd |
-| | go | goimports, gofmt |
 | Lint (nvim-lint) | js / ts / jsx / tsx | cspell |
-| | go | cspell, golangci-lint |
 
 ## Layout
 
 ```
 init.lua              bootstrap lazy.nvim
+bootstrap.sh          installs system tools and warms plugin/parser/LSP caches
 lua/user/             options, keymaps, autocommands (no plugins)
 lua/plugins/          one lazy.nvim spec per plugin
 after/lsp/<server>.lua  per-server overrides merged into vim.lsp.config

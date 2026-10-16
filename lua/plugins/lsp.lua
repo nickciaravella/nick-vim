@@ -1,6 +1,5 @@
 local servers = {
 	"cssls", -- CSS
-	"gopls", -- Go
 	"eslint", -- ESLint
 	"html", -- HTML
 	"jedi_language_server", -- Python
@@ -50,9 +49,6 @@ return {
 				ensure_installed = servers,
 				automatic_enable = servers,
 			})
-
-			-- add support for tools (mason-tool-installer), next time i need to
-			-- install prettierd or something
 
 			-- mason-lspconfig setups up lsp servers with defaults
 			-- and enables them. For extra customization, put additional

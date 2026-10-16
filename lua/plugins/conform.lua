@@ -4,7 +4,6 @@ return {
 	cmd = { "ConformInfo" },
 	opts = {
 		formatters_by_ft = {
-			go = { "goimports", "gofmt" },
 			lua = { "stylua" },
 			javascript = { "prettierd" },
 			javascriptreact = { "prettierd" },
